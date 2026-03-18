@@ -1,0 +1,137 @@
+/* 품질 검사표 시스템 공통 버튼 스타일 */
+
+/* 기본 버튼 스타일 - 모든 버튼 통일 */
+button.btn,
+a.btn,
+input[type="submit"].btn,
+input[type="button"].btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 8px 16px;
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.2;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* 검색 폼 내 버튼 */
+.template-search button,
+.result-search button,
+.review-container button,
+.approval-container button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 8px 16px;
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+/* 검색 폼 내 링크 버튼 (초기화 등) */
+.template-search a.btn,
+.result-search a.btn,
+.template-search .form-group a,
+.result-search .form-group a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 8px 16px;
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+/* 작은 버튼 (테이블 내) */
+.btn-group .btn,
+.btn-view,
+.btn-edit,
+.btn-delete,
+.btn-review,
+.btn-approval {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 6px 12px;
+    margin: 0;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+/* 큰 버튼 (액션 버튼) */
+.btn-submit,
+.btn-save,
+.btn-approve,
+.btn-reject,
+.btn-cancel,
+.btn-download,
+.btn-close,
+a.btn-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 10px 24px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    vertical-align: middle;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+/* 버튼 색상 */
+.btn-primary { background: #007bff; color: #fff; }
+.btn-success { background: #28a745; color: #fff; }
+.btn-warning { background: #ffc107; color: #333; }
+.btn-danger { background: #dc3545; color: #fff; }
+.btn-info { background: #17a2b8; color: #fff; }
+.btn-secondary { background: #6c757d; color: #fff; }
+.btn-purple { background: #6f42c1; color: #fff; }
+
+/* 호버 효과 */
+button.btn:hover,
+a.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 검색 폼 그룹 내 버튼 정렬 - 인라인 스타일로 처리됨 */
+

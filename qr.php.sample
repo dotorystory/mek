@@ -1,0 +1,40 @@
+<?php
+// UTM 파라미터를 GET 방식으로 받아 변수로 저장
+$utm_source = isset($_GET['utm_source']) ? $_GET['utm_source'] : "unknown";
+$utm_medium = isset($_GET['utm_medium']) ? $_GET['utm_medium'] : "unknown";
+$utm_campaign = isset($_GET['utm_campaign']) ? $_GET['utm_campaign'] : "unknown";
+
+// 사용자 에이전트로 디바이스 구분
+$userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
+$platform = "desktop"; // 기본값: 데스크탑
+
+if (strpos($userAgent, 'android') !== false) {
+    $platform = "android";
+} elseif (strpos($userAgent, 'iphone') !== false || strpos($userAgent, 'ipad') !== false) {
+    $platform = "ios";
+}
+
+// Google Analytics용 리퍼러 데이터 추가
+$gaParams = http_build_query([
+    "utm_source" => $utm_source,
+    "utm_medium" => $utm_medium,
+    "utm_campaign" => $utm_campaign,
+    "utm_platform" => $platform
+]);
+
+// 디바이스별 리다이렉트 URL 설정
+if ($platform === "android") {
+    // Android는 Google Play Store 링크
+    $redirectUrl = "https://play.google.com/store/apps/details?id=biz.industrialmarket.aos&referrer=" . urlencode($gaParams);
+} elseif ($platform === "ios") {
+    // iOS는 Apple App Store 링크
+    $redirectUrl = "https://apps.apple.com/kr/app/%EC%82%B0%EC%97%85%EB%A7%88%EC%BC%93/id6544796812";
+} else {
+    // Desktop은 기본 랜딩 페이지
+    $redirectUrl = "https://industrialmarket.biz/install.html?" . $gaParams;
+}
+
+// 리다이렉트 수행
+header("Location: $redirectUrl");
+exit;
+?>

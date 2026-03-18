@@ -1,0 +1,17 @@
+User-agent: *
+
+Disallow: /db/
+Disallow: /*.js$
+Disallow: /admin
+Disallow: /adm
+Disallow: /api
+Disallow: /config
+Disallow: /.env
+Disallow: /env
+
+Allow: /
+
+User-agent: bingbot
+Crawl-delay: 10
+
+Sitemap: https://www.mekeng.com/Sitemap.xml
