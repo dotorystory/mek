@@ -50,6 +50,19 @@ include_once(G5_PATH.'/head_simple.php');
     .elfinder-workzone {
         height: calc(100% - 50px) !important;
     }
+    /* 툴바 버튼: 아이콘 + 명칭 함께 표시 */
+    .elfinder-toolbar .elfinder-button-text {
+        display: inline !important;
+        margin-left: 3px;
+    }
+    /* 뒤로/앞으로/새로고침/홈/상위는 아이콘만 표시 */
+    .elfinder-toolbar .elfinder-button:has(.elfinder-button-icon-back) .elfinder-button-text,
+    .elfinder-toolbar .elfinder-button:has(.elfinder-button-icon-forward) .elfinder-button-text,
+    .elfinder-toolbar .elfinder-button:has(.elfinder-button-icon-reload) .elfinder-button-text,
+    .elfinder-toolbar .elfinder-button:has(.elfinder-button-icon-home) .elfinder-button-text,
+    .elfinder-toolbar .elfinder-button:has(.elfinder-button-icon-up) .elfinder-button-text {
+        display: none !important;
+    }
     .elfinder-cwd-wrapper {
         min-height: 300px !important;
         height: auto !important;
@@ -156,7 +169,7 @@ include_once(G5_PATH.'/head_simple.php');
     }
 </style>
 
-<div class="page-header">
+<div class="page-header" style="display: none;">
     <h2>📁 파일 업로드 관리자</h2>
     <p>휴대폰 또는 PC에서 파일을 업로드하고 관리할 수 있습니다. (최대 500MB)</p>
 </div>
@@ -166,9 +179,10 @@ include_once(G5_PATH.'/head_simple.php');
         <span class="name"><?php echo $member['mb_name'] ? $member['mb_name'] : $member['mb_id']; ?>님</span>
         <span class="level">레벨 <?php echo $member['mb_level']; ?></span>
     </div>
-    <div>
-        <a href="<?php echo G5_URL; ?>/plus/upload_manager.php" style="color: #1a4691;">새로고침</a> |
-        <a href="<?php echo G5_URL; ?>/plus/" style="color: #1a4691;">Home</a>
+    <div style="font-size: 12px;">
+        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=team" style="color:royalblue; font-weight: bold;">📝팀게시판</a> |
+        <a href="<?php echo G5_URL; ?>/plus/upload_manager.php">🔄새로고침</a>
+        <!-- <a href="<?php echo G5_URL; ?>/plus/">Main</a> -->
     </div>
 </div>
 
@@ -237,6 +251,13 @@ jQuery(document).ready(function($) {
                 ['view']
             ]
         },
+        // 툴바 버튼에 아이콘+명칭 함께 표시 (저장 기본값)
+        start: function() {
+            var fm = this;
+            if (!fm.storage('toolbarTextLabel')) {
+                fm.storage('toolbarTextLabel', '1');
+            }
+        },
         handlers: {
             // 업로드 완료 시
             upload: function(event, instance) {
@@ -278,14 +299,15 @@ jQuery(document).ready(function($) {
 
 <!-- 사용 안내 영역 (elfinder 아래로 이동) -->
 <div style="display: block; width: 100%; margin: 20px auto; text-align: center; padding: 15px; border-radius: 5px; clear: both;">
-    <h3 style="margin: 0 0 10px 0; color: #333;">📌 사용 안내</h3>
+    <h3 style="margin: 0 0 10px 0; color: #333;">📌 MEK 자료실 이용 안내</h3>
     <ul style="margin: 0; padding-left: 20px; color: #666;">
-        <li><strong>업로드</strong>: 드래그 앤 드롭 또는 '업로드' 버튼 클릭</li>
-        <li><strong>폴더 생성</strong>: '새폴더' 버튼으로 정리 가능</li>
-        <li><strong>다운로드</strong>: 파일 선택 후 '다운로드' 버튼</li>
-        <li><strong>허용 파일</strong>: 이미지(jpg, png, gif 등), 영상(mp4, mov 등), 문서(pdf, hwp, doc 등)</li>
-        <li><strong>최대 크기</strong>: 파일당 500MB</li>
-        <li><strong>자동 백업</strong>: 업로드된 파일은 매일 2회 회사 내부 서버로 자동 동기화됩니다.</li>
+        <li><strong>업로드</strong>: 드래그 앤 드롭 또는 '업로드' 버튼 사용 | 
+            <strong>폴더 생성</strong>: '새 폴더' 버튼으로 생성 가능 | 
+            <strong>다운로드</strong>: 파일 선택 후 '다운로드' 버튼 | 
+            <strong>허용파일</strong>: 문서(pdf, 엑셀 등), 이미지(jpg, png 등), 영상(mp4 등) | 
+            <strong>크기</strong>: 파일당 최대 500MB 
+        </li> 
+        <!-- <li><strong>자동 백업</strong>: 업로드된 파일은 매일 2회 회사 내부 서버로 자동 동기화됩니다.</li> -->
     </ul>
 </div>
 

@@ -124,7 +124,7 @@
 			'cmdback'      : '뒤로',
 			'cmdcopy'      : '복사',
 			'cmdcut'       : '자르기',
-			'cmddownload'  : '다운로드',
+			'cmddownload'  : '받기',
 			'cmdduplicate' : '사본',
 			'cmdedit'      : '편집',
 			'cmdextract'   : '압축풀기',
@@ -133,7 +133,7 @@
 			'cmdhelp'      : '이 소프트웨어는',
 			'cmdhome'      : '홈',
 			'cmdinfo'      : '파일정보',
-			'cmdmkdir'     : '새 폴더',
+			'cmdmkdir'     : '새폴더',
 			'cmdmkdirin'   : '새 폴더로', // from v2.1.7 added 19.2.2016
 			'cmdmkfile'    : '새 파일',
 			'cmdopen'      : '열기',
@@ -161,7 +161,7 @@
 			'cmdempty'     : '폴더 비우기', // from v2.1.25 added 22.06.2017
 			'cmdundo'      : '실행 취소', // from v2.1.27 added 31.07.2017
 			'cmdredo'      : '다시 실행', // from v2.1.27 added 31.07.2017
-			'cmdpreference': '환경설정', // from v2.1.27 added 03.08.2017
+			'cmdpreference': '수정', // from v2.1.27 added 03.08.2017 (별칭/환경설정 버튼)
 			'cmdselectall' : '전체 선택', // from v2.1.28 added 15.08.2017
 			'cmdselectnone': '선택 취소', // from v2.1.28 added 15.08.2017
 			'cmdselectinvert': '선택 반전', // from v2.1.28 added 15.08.2017
