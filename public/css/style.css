@@ -463,7 +463,7 @@ width: 170%; top: 50%; left: 50%; transform: translate(-50%, -50%); filter: blur
 .sub-hd:hover .header_wrap .head_logo .logo_w {display: none!important;}
 .sub-hd:hover .header_wrap .head_logo .logo_b {display: inline-block!important;}
 
-#s_top{position: relative; padding-top: 240px}
+#s_top{position: relative; padding-top: 150px}
 #s_top.bg01{background: url(../img/s_top_bg01.png) no-repeat center center / cover;}
 #s_top.bg02{background: url(../img/s_top_bg02.png) no-repeat center center / cover;}
 #s_top.bg03{background: url(../img/s_top_bg03.png) no-repeat center center / cover;}
@@ -509,7 +509,7 @@ to {
 #snb .lnb li a:hover::after{transform-origin: bottom left; transform: scaleX(1);}
 
 /* sub 서브페이지 */
-#sub{padding: 100px 30px;}
+#sub{padding: 70px 30px;}
 #sub .subtitle_wrap {letter-spacing: -1px; font-weight: 700; padding-bottom: 80px;}
 #sub .subtitle_wrap .eng_title {font-size: 30px; color: #144d98;}
 #sub .subtitle_wrap .sub_title {display: flex; align-items: center; gap:80px;}

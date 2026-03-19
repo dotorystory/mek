@@ -41,6 +41,15 @@ include_once(G5_PATH.'/simple_inquiry.php');
             </div>
             <?php } ?>
 
+            <?php if ($is_member && isset($member['mb_level']) && $member['mb_level'] >= 3) { ?>
+            <div class="plus-menu-item">
+                <div class="plus-menu-icon">📋</div>
+                <h3>영업팀 게시판</h3>
+                <p>MEK 기술영업팀 전용 게시판</p>
+                <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=team" class="plus-menu-btn">게시판 바로가기</a>
+            </div>
+            <?php } ?>
+
             <?php if ($is_member && isset($member['mb_level']) && $member['mb_level'] >= 4) { ?>
             <div class="plus-menu-item">
                 <div class="plus-menu-icon">📧</div>
@@ -50,7 +59,7 @@ include_once(G5_PATH.'/simple_inquiry.php');
             </div>
             <?php } ?>
             
-            <?php if ($is_member && isset($member['mb_level']) && $member['mb_level'] >= 4) { ?>
+            <?php if ($is_member && isset($member['mb_level']) && $member['mb_level'] >= 9) { ?>
             <div class="plus-menu-item">
                 <div class="plus-menu-icon">⚠</div>
                 <h3>품질 검사</h3>
