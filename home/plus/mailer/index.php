@@ -630,7 +630,7 @@ if (function_exists('get_mail_send_stats')) {
 
     <!-- 뉴MEK+ Mail 발송 섹션 -->
     <div class="mail-form-section" style="border: 1px solid #ddd;">
-        <h2 style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">MEK+ Mail 발송 <button type="button" id="btn_mailer_notice_top" style="padding: 4px 10px; background: #f0f0f0; color: #666; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 12px;">주의사항</button></h2>
+        <h2 style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">MEK+ Mail 발송 <button type="button" id="btn_mailer_notice_top" style="padding: 4px 10px; background:#b8860b; color: #fff; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 12px;">주의사항</button></h2>
         <br>
 
     <?php if (isset($result_message)): ?>
@@ -658,9 +658,9 @@ if (function_exists('get_mail_send_stats')) {
     <!-- 주의사항 안내 모달 -->
     <div id="mailer-notice-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9998; background: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
         <div style="background: #fff; max-width: 520px; width: 90%; max-height: 85vh; overflow-y: auto; padding: 24px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.2);">
-            <h3 style="margin: 0 0 16px 0; font-size: 18px; color: #333; border-bottom: 2px solid #b8860b; padding-bottom: 8px;">📋 메일 발송 주의사항</h3>
+            <h3 style="margin: 0 0 16px 0; font-size: 18px; color: #333; border-bottom: 2px solid #b8860b; padding-bottom: 8px;">⚠️ 메일 발송 주의사항</h3>
             <ol style="margin: 0 0 16px 0; padding-left: 20px; line-height: 1.7; color: #444;">
-                <li><strong>반드시 CSV UTF-8 형식</strong>을 사용하세요.</li>
+                <li><strong>메일발송명단을 엑셀파일로 첨부 시, 반드시 CSV UTF-8 형식</strong>을 사용하세요.</li>
                 <li>시트의 <strong>제1행은 메뉴(헤더) 행</strong>으로 처리됩니다.</li>
                 <li><span style="color: #c00;">[필수]</span> 시트의 <strong>제1열(제1행 제외)</strong>에 이메일 주소를 넣어주세요. (제2열 이후에 이름, 연락처 등 다른 정보가 있는 것은 상관 없음)</li>
             </ol>
@@ -682,13 +682,13 @@ if (function_exists('get_mail_send_stats')) {
         </div>
         
         <div class="mail-form-group">
-            <label for="newsletter_title">제목</label>
+            <label for="newsletter_title">📝 제목</label>
             <input type="text" id="newsletter_title" name="newsletter_title" required 
                    value="<?php echo htmlspecialchars($config['cf_title'] . ' ' . date('Y년 m월') . ' 뉴스레터'); ?>">
         </div>
 
         <div class="mail-form-group" id="header_title_group">
-            <label for="header_title">헤더 제목</label>
+            <label for="header_title">🏷️ 헤더 제목</label>
             <input type="text" id="header_title" name="header_title" 
                    value="🎊 <?php echo date('Y'); ?>년 새해 인사 🎊"
                    placeholder="🎊 2025년 새해 인사 🎊"
@@ -697,7 +697,7 @@ if (function_exists('get_mail_send_stats')) {
         </div>
 
         <div class="mail-form-group" id="greeting_group">
-            <label for="greeting_text">연하장 인사말</label>
+            <label for="greeting_text">💬 연하장 인사말</label>
             <textarea id="greeting_text" name="greeting_text" rows="4" placeholder="새해 복 많이 받으세요!&#10;2025년 새해를 맞이하여&#10;건강과 행복이 가득하시기를 기원합니다.">새해 복 많이 받으세요!
 <?php echo date('Y'); ?>년 새해를 맞이하여
 건강과 행복이 가득하시기를 기원합니다.</textarea>
@@ -705,7 +705,7 @@ if (function_exists('get_mail_send_stats')) {
         </div>
 
         <div class="mail-form-group">
-            <label for="content">추가 메시지 (선택사항)</label>
+            <label for="content">✍️ 추가 메시지 (선택사항)</label>
             <textarea id="content" name="content" rows="5" placeholder="기본 인사말 외에 추가로 전달할 메시지가 있다면 입력해주세요."></textarea>
             <p class="help-text">입력한 줄바꿈이 그대로 유지됩니다.</p>
         </div>
@@ -713,13 +713,13 @@ if (function_exists('get_mail_send_stats')) {
         <div class="mail-form-group">
             <label>
                 <input type="checkbox" name="use_newyear_template" value="1" style="margin-right: 8px;">
-                <strong>연하장 스타일 템플릿 사용</strong> (네이버, 구글, 아웃룩 등에서 예쁘게 표시됩니다)
+                <strong>🎨 연하장 스타일 템플릿 사용</strong> (네이버, 구글, 아웃룩 등에서 예쁘게 표시됩니다)
             </label>
             <p class="help-text">체크 해제 시 기본 뉴스레터 템플릿을 사용합니다.</p>
         </div>
 
         <div class="mail-form-group">
-            <label for="attachments">첨부파일 (선택)</label>
+            <label for="attachments">📎 첨부파일 (선택)</label>
             <input type="file" id="attachments" name="attachments[]" multiple
                    accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt,.zip,.hwp,.xlsx,.xls,.bmp"
                    style="padding: 6px; border: 1px solid #ddd; border-radius: 4px;">
@@ -729,8 +729,10 @@ if (function_exists('get_mail_send_stats')) {
             </p>
         </div>
 
-        <div class="mail-form-group">
-            <label for="mail_type">메일 대상 선택</label>
+        <div class="mail-form-group mail-form-group-mail-target">
+            <label for="mail_type" class="mail-mail-target-label">
+                <span class="mail-mail-target-label-text">👥 메일 발송 명단 (선택)</span>
+            </label>
             <select id="mail_type" name="mail_type" required>
                 <option value="custom">직접 입력</option>
                 <option value="subscribe">구독자 (g5_subscribe)</option>
@@ -740,12 +742,12 @@ if (function_exists('get_mail_send_stats')) {
         </div>
 
         <div class="mail-form-group" id="custom_emails_group">
-            <label for="custom_emails">이메일 목록 (쉼표 또는 줄바꿈으로 구분)</label>
+            <label for="custom_emails">📋 이메일 목록 (쉼표 또는 줄바꿈으로 구분)</label>
             <textarea id="custom_emails" name="custom_emails" rows="5" style="background: #f5f5f5; color: royalblue; padding: 5px; border-radius: 5px;"></textarea>
         </div>
 
         <div class="mail-form-group" id="csv_file_group" style="display:none;">
-            <label for="csv_file">CSV 파일 업로드</label>
+            <label for="csv_file">📄 CSV 파일 업로드</label>
             <input type="file" id="csv_file" name="csv_file" accept=".csv">
             <div style="margin-top: 10px; padding: 12px 14px; background: #fff8e6; border: 1px solid #e6c84a; border-radius: 6px; font-size: 14px;">
                 <strong style="color: #b8860b;">⚠ CSV 업로드 시:</strong> 제1행은 메뉴(헤더) 행이며, <strong>첫 번째 열에 이메일 주소</strong>를 넣어주세요.
@@ -754,7 +756,7 @@ if (function_exists('get_mail_send_stats')) {
         </div>
 
         <div class="mail-form-group">
-            <label>새글 목록</label>
+            <label>📰 새글 목록</label>
             <div class="new-articles-list">
                 <?php foreach ($new_articles as $article): ?>
                 <div class="article-item" data-board-name="<?php echo htmlspecialchars($article['bo_subject']); ?>">
@@ -770,7 +772,7 @@ if (function_exists('get_mail_send_stats')) {
             </p>
         </div>
 
-        <button type="submit" class="mail-submit-btn" style="width: 150px;">MEK+ Mail 발송</button>
+        <button type="submit" class="mail-submit-btn" style="width: 150px;">📧 메일 발송하기 </button>
     </form>
     </div>
 
@@ -782,7 +784,7 @@ if (function_exists('get_mail_send_stats')) {
         <h2>📊 메일 발송 로그</h2>
         
         <div style="padding: 20px; background: #fff; border-radius: 5px; margin-bottom: 15px;">
-            <h3 style="margin-top: 0; color: #333;">오늘 발송 통계</h3>
+            <h3 style="margin-top: 0; color: #333;">📈 오늘 발송 통계</h3>
             <div style="display: flex; gap: 30px; margin-bottom: 15px; flex-wrap: wrap;">
                 <div>
                     <strong style="color: #666;">전체 발송:</strong> 
@@ -798,7 +800,7 @@ if (function_exists('get_mail_send_stats')) {
                 </div>
             </div>
             
-            <h3 style="margin-top: 20px; color: #333;">최근 24시간 발송 내역 (최대 1000건)</h3>
+            <h3 style="margin-top: 20px; color: #333;">📜 최근 24시간 발송 내역 (최대 1000건)</h3>
             <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px;">
                 <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
                     <thead style="background: #f5f5f5; position: sticky; top: 0;">
@@ -910,12 +912,12 @@ if (function_exists('get_mail_send_stats')) {
 
     <!-- 테스트 메일 발송 섹션 -->
     <div class="mail-form-section" style="margin-top: 50px; background: #f5f5f5; border: 1px solid #ddd;">
-        <h2>테스트 메일 발송</h2>
+        <h2>🧪 테스트 메일 발송</h2>
         <form method="post" id="testMailForm">
             <input type="hidden" name="action" value="test_mail">
             
             <div class="mail-form-group">
-                <label for="test_email">테스트 이메일 주소 <span class="required">*</span></label>
+                <label for="test_email">✉️ 테스트 이메일 주소 <span class="required">*</span></label>
                 <input type="email" id="test_email" name="test_email" required 
                     style="background: #fff; color: royalblue; padding: 5px; border-radius: 5px; border: 1px solid #ddd;"
                     placeholder="수신 이메일 주소 입력">
@@ -998,6 +1000,20 @@ if (function_exists('get_mail_send_stats')) {
     margin-right: 15px;
     font-size: 0.9em;
     color: #666;
+}
+/* 메일 발송 명단 (선택) — 강조 */
+.mail-form-group-mail-target .mail-mail-target-label {
+    display: block;
+    margin-bottom: 10px;
+}
+.mail-mail-target-label-text {
+    display: inline-block;
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: #1565c0;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
 }
 </style>
 
