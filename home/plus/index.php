@@ -54,7 +54,7 @@ include_once(G5_PATH.'/simple_inquiry.php');
             <div class="plus-menu-item">
                 <div class="plus-menu-icon">📧</div>
                 <h3>MEK+ Mailer</h3>
-                <p>SMTP 설정 및 뉴스레터 발송 관리</p>
+                <p>개인/단체 메일 발송 및 뉴스레터 발송</p>
                 <a href="./mailer" class="plus-menu-btn">메일 관리자</a>
             </div>
             <?php } ?>
