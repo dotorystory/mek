@@ -414,7 +414,7 @@ function get_newsletter_template($subject, $content, $unsubscribe_key, $email = 
     $site_url = G5_URL;
     $site_name = $config['cf_title'];
     $current_date = date('Y.m.d');
-    
+
     // 이메일이 제공되지 않은 경우 unsubscribe_key에서 추출 시도
     if (empty($email) && !empty($unsubscribe_key)) {
         $decoded = base64_decode($unsubscribe_key);
@@ -425,84 +425,99 @@ function get_newsletter_template($subject, $content, $unsubscribe_key, $email = 
             }
         }
     }
-    
+
     // 구독 취소 URL 생성 (mailer의 unsubscribe 기능 사용)
     $unsubscribe_url = '';
     if (!empty($unsubscribe_key) && !empty($email)) {
         $unsubscribe_url = $site_url . '/plus/mailer/?action=unsubscribe&key=' . urlencode($unsubscribe_key) . '&email=' . urlencode($email);
     }
-    
-    // 기본 인사말
-    $greeting = <<<EOT
-{$current_date} 『{$site_name}』
-EOT;
 
-    // 발신자 정보
-    $sender_info = <<<EOT
-<div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-    <p style="font-size: 12px; color: #777;">
-        발신자 정보:<br>
-        성명: {$member['mb_name']}<br>
-        연락처: {$member['mb_tel']}<br>
-        이메일: {$member['mb_email']}
-    </p>
-    <br>
-</div>
-EOT;
+    $subject_esc = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
+    $site_name_esc = htmlspecialchars($site_name, ENT_QUOTES, 'UTF-8');
+    $greeting_line = htmlspecialchars($current_date . ' 『' . $site_name . '』', ENT_QUOTES, 'UTF-8');
 
+    $mb_name = isset($member['mb_name']) ? htmlspecialchars((string) $member['mb_name'], ENT_QUOTES, 'UTF-8') : '';
+    $mb_tel = isset($member['mb_tel']) ? htmlspecialchars((string) $member['mb_tel'], ENT_QUOTES, 'UTF-8') : '';
+    $mb_email = isset($member['mb_email']) ? htmlspecialchars((string) $member['mb_email'], ENT_QUOTES, 'UTF-8') : '';
+
+    // 발신자 정보 (인라인 스타일 — 기본 템플릿 전용, 수신 메일 클라이언트 호환)
+    $sender_info = <<<HTML
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;margin-top:28px;">
+<tr>
+<td style="padding:16px 0 0 0;border-top:1px solid #e2e8f0;font-family:'Malgun Gothic','맑은 고딕',AppleGothic,'Apple SD Gothic Neo',sans-serif;font-size:12px;line-height:1.65;color:#64748b;">
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;border-left:3px solid #1565c0;padding-left:22px;">
+<tr><td style="padding:0 0 4px 0;font-weight:600;color:#475569;">발신자 정보</td></tr>
+<tr><td style="padding:0;">성명: {$mb_name}</td></tr>
+<tr><td style="padding:0;">연락처: {$mb_tel}</td></tr>
+<tr><td style="padding:0;">이메일: {$mb_email}</td></tr>
+</table>
+</td>
+</tr>
+</table>
+HTML;
+
+    // 기업용 심플 레이아웃: 테이블 + 인라인 스타일 (연하장 템플릿 미사용 시)
     return <<<EOT
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            .newsletter-container { max-width: 600px; margin: 0 auto; font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif; }
-            .header { background: #f8f9fa; padding: 20px; text-align: center; }
-            .content { padding: 20px; line-height: 1.6; }
-            .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; }
-            .article { margin-bottom: 20px; padding: 15px; border: 1px solid #eee; }
-            .article-title { color: #333; text-decoration: none; font-weight: bold; }
-            .article-excerpt { color: #666; margin-top: 10px; }
-            .unsubscribe { color: #999; text-decoration: none; }
-            .greeting { margin-bottom: 30px; line-height: 1.8; }
-        </style>
-    </head>
-    <body>
-        <div class="newsletter-container">
-            <div class="header">
-                <h1>{$subject}</h1>
-            </div>
-            
-            <div class="content">
-                <div class="greeting">
-                    {$greeting}
-                </div>
-                {$content}
-                {$sender_info}
-            </div>
-            
-            <div class="footer">
-                <p><a href="{$site_url}/" style="font-size: 20px; font-weight: bold; text-decoration: none;">{$site_name} 바로가기</a></p>
-                <p>본 메일은 발신전용입니다. 문의사항이 있으신 경우 사이트를 방문해주세요.</p>
-                <br>
-                <p><a href="{$unsubscribe_url}" class="unsubscribe">메일 수신 거부</a></p>           </div>
-        </div>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$subject_esc}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#eef2f6;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;background-color:#eef2f6;">
+<tr>
+<td align="center" style="padding:32px 16px;">
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:600px;border-collapse:collapse;background-color:#ffffff;border:1px solid #d8dee6;box-shadow:0 1px 3px rgba(15,23,42,0.06);">
+<tr>
+<td style="height:6px;background-color:#1565c0;line-height:6px;font-size:0;">&nbsp;</td>
+</tr>
+<tr>
+<td style="padding:28px 28px 8px 28px;font-family:'Malgun Gothic','맑은 고딕',AppleGothic,'Apple SD Gothic Neo',sans-serif;">
+<p style="margin:0 0 6px 0;font-size:11px;letter-spacing:0.06em;color:#64748b;text-transform:uppercase;">{$site_name_esc}</p>
+<h1 style="margin:0;font-size:19px;font-weight:600;line-height:1.4;color:#0f172a;letter-spacing:-0.02em;">{$subject_esc}</h1>
+</td>
+</tr>
+<tr>
+<td style="padding:8px 28px 28px 28px;font-family:'Malgun Gothic','맑은 고딕',AppleGothic,'Apple SD Gothic Neo',sans-serif;font-size:15px;line-height:1.65;color:#334155;">
+<p style="margin:0 0 22px 0;color:#475569;font-size:14px;">{$greeting_line}</p>
+{$content}
+{$sender_info}
+</td>
+</tr>
+<tr>
+<td style="padding:22px 28px;background-color:#f8fafc;border-top:1px solid #e2e8f0;font-family:'Malgun Gothic','맑은 고딕',AppleGothic,'Apple SD Gothic Neo',sans-serif;font-size:12px;line-height:1.65;color:#64748b;text-align:center;">
+<a href="{$site_url}/" style="color:#1565c0;text-decoration:none;font-weight:600;">{$site_name_esc} 웹사이트</a>
+<p style="margin:14px 0 10px 0;">본 메일은 발신 전용입니다. 문의사항이 있으시면 홈페이지를 이용해 주세요.</p>
+<p style="margin:0;"><a href="{$unsubscribe_url}" style="color:#94a3b8;text-decoration:underline;">메일 수신 거부</a></p>
+</td>
+</tr>
+</table>
+<p style="margin:16px 0 0 0;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:11px;color:#94a3b8;text-align:center;">&copy; {$site_name_esc}</p>
+</td>
+</tr>
+</table>
+</body>
+</html>
 EOT;
 }
 
-// 새글 정보를 HTML로 변환
+// 새글 정보를 HTML로 변환 (기본 뉴스레터 템플릿용 — 클래스 없이 인라인 스타일)
 function get_article_html($article) {
     $title = $article['wr_subject'];
     if (isset($article['is_ad']) && $article['is_ad']) {
         $title = '[광고] ' . $title;
     }
-    
-    $html = '<div class="article">';
-    $html .= '<a href="'.$article['href'].'" class="article-title">'.$title.'</a>';
-    $html .= '<div class="article-excerpt">'.cut_str(strip_tags($article['wr_content']), 200).'</div>';
-    $html .= '</div>';
-    return $html;
+    $title_esc = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+    $href_esc = htmlspecialchars($article['href'], ENT_QUOTES, 'UTF-8');
+    $excerpt = htmlspecialchars(cut_str(strip_tags($article['wr_content']), 200), ENT_QUOTES, 'UTF-8');
+
+    return '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;margin:0 0 18px 0;border-bottom:1px solid #e2e8f0;">'
+        . '<tr><td style="padding:0 0 16px 0;">'
+        . '<a href="' . $href_esc . '" style="display:block;font-size:15px;font-weight:600;color:#1565c0;text-decoration:none;line-height:1.4;margin-bottom:8px;">' . $title_esc . '</a>'
+        . '<div style="font-size:14px;line-height:1.6;color:#64748b;">' . $excerpt . '</div>'
+        . '</td></tr></table>';
 }
 ?>
