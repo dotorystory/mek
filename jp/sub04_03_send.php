@@ -2,8 +2,16 @@
 <?php
 include_once('./_common.php');
 include_once(G5_PATH.'/plus/mail_sender.php');
+include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 
 if(isset($_POST['email'])) {
+
+  if (!chk_captcha()) {
+    echo "<script> alert('自動登録防止の数字が正しくありません。');";
+    echo "history.go(-1);";
+    echo "</script>";
+    die();
+  }
 
   // 파일 업로드 처리
   $file = $_FILES['attachment'];
@@ -76,7 +84,7 @@ if(isset($_POST['email'])) {
   // $file_name = $file['name'];
   $file_url = G5_DATA_URL . "/mail/" . $filename; // 파일 경로
 
-  $email_to = "sales@webmail.mekeng.com";
+  $email_to = "msk@mekeng.com";
 
   $email_subject = "[A/S お問い合わせ]";
   $email_subject = '=?UTF-8?B?'.base64_encode($email_subject).'?=';
@@ -114,7 +122,7 @@ $headers .= 'Content-type: text/html'."\r\n";
 
 // 제목이 깨질경우 아래 캐릭터셋 적용
 
-@mail($email_to, $email_subject, $email_message, $headers);
+mekeng_form_send_html_mail($email_to, $email_subject, $email_message, $email_from);
 
 // ニュースレター購読処理（個人情報同意時に自動購読）
 if (isset($_POST['agree']) && $_POST['agree'] == 'on') {

@@ -2,6 +2,27 @@
 if (!defined('_GNUBOARD_')) exit;
 
 /**
+ * 로컬 Postfix 제출: `lib/mailer.lib.php` + `config.php`의 G5_SMTP_PORT / G5_SMTP_SECURE 와 동일.
+ *
+ * @param PHPMailer $mail
+ */
+function mekeng_phpmailer_apply_local_postfix($mail) {
+    $mail->Host = '127.0.0.1';
+    $mail->Port = (defined('G5_SMTP_PORT') && G5_SMTP_PORT !== '' && (int) G5_SMTP_PORT > 0)
+        ? (int) G5_SMTP_PORT
+        : 25;
+    $use_secure = defined('G5_SMTP_SECURE') ? G5_SMTP_SECURE : '';
+    if ($use_secure === 'tls' || $use_secure === 'ssl') {
+        $mail->SMTPSecure = $use_secure;
+        $mail->SMTPAutoTLS = true;
+    } else {
+        $mail->SMTPSecure = false;
+        $mail->SMTPAutoTLS = false;
+    }
+    $mail->SMTPAuth = false;
+}
+
+/**
  * PHPMailer를 사용하여 SMTP로 메일 발송
  * @param string $to 수신 이메일
  * @param string $subject 제목
@@ -23,7 +44,7 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true) {
         if ($use_smtp_config) {
             $smtp_config = sql_fetch("SELECT * FROM g5_smtp_config WHERE sc_active = 1 LIMIT 1");
             
-            // 로컬 postfix 사용 옵션이 있으면 mail() 함수로 직접 발송
+            // 로컬 Postfix: PHPMailer + config 포트(587 등)
             if ($smtp_config && isset($smtp_config['sc_use_local_postfix']) && $smtp_config['sc_use_local_postfix'] == 1) {
                 return send_mail_via_smtp_fallback($to, $subject, $content);
             }
@@ -59,6 +80,7 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true) {
                 
                 $mail->setFrom($from_email, $from_name);
                 $mail->addReplyTo($from_email, $from_name);
+                $mail->Sender = $from_email;
             } else {
                 // SMTP 설정이 없으면 기본 설정 사용
                 return send_mail_via_smtp_fallback($to, $subject, $content);
@@ -72,10 +94,10 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true) {
                 $mail->SMTPSecure = 'tls';
                 $mail->SMTPAuth = true;
                 // 기본 SMTP 인증 정보는 설정 파일에 없으므로 사용자 입력 필요
-                // 포털 메일 발송을 위해 SPF가 설정된 webmail.mekeng.com 도메인 사용
-                $from_email = 'sales@mekeng.com';
+                $from_email = 'msk@mekeng.com';
                 $from_name = $config['cf_title'] ?? '';
                 $mail->setFrom($from_email, $from_name);
+                $mail->Sender = $from_email;
             } else {
                 return send_mail_via_smtp_fallback($to, $subject, $content);
             }
@@ -100,25 +122,26 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true) {
         // 디버그 모드 (필요시 활성화)
         // $mail->SMTPDebug = 2;
         // $mail->Debugoutput = 'error_log';
-        
+
+        if (empty($mail->Sender) && !empty($mail->From)) {
+            $mail->Sender = $mail->From;
+        }
         if ($mail->send()) {
             return ['success' => true, 'error' => ''];
         } else {
-            // SMTP 발송 실패 시 mail() 함수로 자동 폴백
+            // SMTP 실패 시 로컬 Postfix( mailer() 와 동일 포트/TLS )
             $error_info = $mail->ErrorInfo;
             return send_mail_via_smtp_fallback($to, $subject, $content, $error_info);
         }
         
     } catch (\Exception $e) {
-        // 예외 발생 시 mail() 함수로 자동 폴백
         return send_mail_via_smtp_fallback($to, $subject, $content, $e->getMessage());
     }
 }
 
 /**
- * SMTP 설정이 없을 때 또는 SMTP 발송 실패 시 PHP mail() 함수로 폴백
- * postfix가 제대로 설정되어 있으면 포털 메일로도 정상 발송됨
- * 
+ * SMTP 설정이 없을 때·로컬 Postfix 옵션·외부 SMTP 실패 시 로컬 Postfix로 폴백 (mailer()와 동일 포트/TLS).
+ *
  * @param string $to 수신 이메일
  * @param string $subject 제목
  * @param string $content 내용 (HTML)
@@ -127,45 +150,97 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true) {
  */
 function send_mail_via_smtp_fallback($to, $subject, $content, $smtp_error = '') {
     global $config;
-    
-    // 포털 메일 발송을 위해 SPF가 설정된 webmail.mekeng.com 도메인 사용
-    // webmail.mekeng.com 도메인에 SPF 레코드(mx ~all)가 설정되어 있음
-    $from_email = 'sales@mekeng.com';
-    $from_name = $config['cf_title'] ?? '';
-    
-    // 제목 인코딩 (한글 제목 지원) - 정상 작동하는 페이지들과 동일
-    if (preg_match('/[^\x00-\x7F]/', $subject)) {
-        // 한글이나 멀티바이트 문자가 포함된 경우 Base64 인코딩
-        $encoded_subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
-    } else {
-        // ASCII 문자만 포함된 경우 그대로 사용
-        $encoded_subject = $subject;
+
+    $from_email = (defined('G5_MAIL_FROM') && G5_MAIL_FROM) ? G5_MAIL_FROM : 'msk@mekeng.com';
+    $from_name = (defined('G5_MAIL_FROM_NAME') && G5_MAIL_FROM_NAME) ? G5_MAIL_FROM_NAME : ($config['cf_title'] ?? '');
+
+    if (!class_exists('PHPMailer')) {
+        include_once(G5_PHPMAILER_PATH.'/PHPMailerAutoload.php');
     }
-    
-    // 정상 작동하는 페이지들(simple_inquiry.php, sub04_01_send.php)과 동일한 간단한 헤더 구성
-    // 포털 메일 발송을 위해 최소한의 헤더만 사용
-    $headers = 'From: ' . $from_email . "\r\n";
-    $headers .= 'Reply-to: ' . $from_email . "\r\n";
-    $headers .= 'Content-type: text/html' . "\r\n";
-    
-    // 정상 작동하는 페이지들과 동일하게 mail() 함수 직접 사용
-    // postfix가 자동으로 처리하므로 추가 헤더나 sendmail 직접 호출 불필요
-    $result = @mail($to, $encoded_subject, $content, $headers);
-    
-    if ($result) {
-        return [
+
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        mekeng_phpmailer_apply_local_postfix($mail);
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+        $mail->Timeout = 600;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ),
+        );
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $content;
+        $mail->AltBody = strip_tags($content);
+        $mail->setFrom($from_email, $from_name);
+        $mail->Sender = $from_email;
+        $mail->addReplyTo($from_email, $from_name);
+        $mail->clearAddresses();
+        $mail->addAddress($to);
+        $mail->send();
+        return array(
             'success' => true,
-            'error' => $smtp_error ? 'SMTP 실패 후 mail() 함수로 발송 성공' : ''
-        ];
-    } else {
-        $error_msg = 'PHP mail() 함수로 발송 실패';
-        if ($smtp_error) {
-            $error_msg .= ' (SMTP 오류: ' . $smtp_error . ')';
+            'error' => $smtp_error ? 'SMTP 실패 후 로컬 Postfix로 재발송 성공' : ''
+        );
+    } catch (\Exception $e) {
+        $msg = $e->getMessage();
+        if (isset($mail) && is_object($mail) && !empty($mail->ErrorInfo)) {
+            $msg .= ' [' . $mail->ErrorInfo . ']';
         }
-        return [
+        if (function_exists('error_log')) {
+            error_log('send_mail_via_smtp_fallback: ' . $msg);
+        }
+        return array(
             'success' => false,
-            'error' => $error_msg
-        ];
+            'error' => '로컬 Postfix 발송 실패' . ($smtp_error ? ' (이전 SMTP: ' . $smtp_error . ')' : '') . ': ' . $msg
+        );
+    }
+}
+
+/**
+ * 문의 폼 등 웹(Apache)에서 sales@webmail 등으로 HTML 메일 발송.
+ * 로컬 Postfix로 제출. 포트/TLS는 config(G5_SMTP_PORT, G5_SMTP_SECURE)와 mailer() 동일.
+ */
+function mekeng_form_send_html_mail($to, $subject, $html_body, $from_email) {
+    if (!class_exists('PHPMailer')) {
+        include_once(G5_PHPMAILER_PATH.'/PHPMailerAutoload.php');
+    }
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        mekeng_phpmailer_apply_local_postfix($mail);
+        $mail->CharSet = 'UTF-8';
+        $mail->Timeout = 60;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ),
+        );
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $html_body;
+        $mail->clearAddresses();
+        $mail->addAddress($to);
+        $from_email = trim($from_email);
+        if ($from_email === '') {
+            $from_email = 'noreply@mekeng.com';
+        }
+        $mail->setFrom($from_email);
+        $mail->addReplyTo($from_email);
+        $mail->Sender = 'msk@mekeng.com';
+        $mail->send();
+        return true;
+    } catch (\Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('mekeng_form_send_html_mail: '.$e->getMessage());
+        }
+        return false;
     }
 }
 

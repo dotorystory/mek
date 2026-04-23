@@ -1,6 +1,7 @@
 <?php
 include_once('./_common.php');
 include_once(G5_PATH.'/plus/mail_sender.php');
+include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 
 $menuCodeParent = 4;
 $menuCodeChild = 0;
@@ -132,13 +133,19 @@ include_once(G5_PATH.'/head.php');
                 <div class="desc">
                   <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
                     <div style="display: flex; align-items: center;">
-                      <input type="checkbox" name="agree" id="agree" checked required class="required" style="width: auto; margin-right: 8px;">
+                      <input type="checkbox" name="agree" id="agree" required class="required" style="width: auto; margin-right: 8px;">
                       <label for="agree" style="margin: 0; display: inline;">'個人情報の収集·利用'に同意します。</label>
                     </div>
                     <a href="javascript:void(0);" id="showPrivacyModal" style="color: #1a4691; text-decoration: underline; font-size: 13px; margin-left: 10px; cursor: pointer;">個人情報の収集·利用</a>
                   </div>
                 </div>
               </li>
+            <li>
+              <label class="lbl">自動登録防止</label>
+              <div class="desc">
+                <?php echo captcha_html(); ?>
+              </div>
+            </li>
             </ul>
             <div class="btn-group">
               <p><span>*</span> 印がついている項目は必ず入力してください。お問い合わせ内容を確認次第、連絡いたします。</p>

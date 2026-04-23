@@ -26,7 +26,9 @@ include_once(G5_LIB_PATH.'/popular.lib.php');
 // include_once(G5_PATH.'/popup.php');
 
 // 문의폼은 메인/서브페이지에만 표시 (회원가입 등 제외)
-if (!defined('_REGISTER_') && !preg_match('/(login|register|password|certify)/', $_SERVER['SCRIPT_NAME'])) {
+// sub04 문의 페이지는 본문에 자체 캡차가 있어 simple_inquiry를 넣으면 캡차 ID가 중복되어 이미지가 갱신되지 않음
+if (!defined('_REGISTER_') && !preg_match('/(login|register|password|certify)/', $_SERVER['SCRIPT_NAME'])
+    && !preg_match('/sub04_0[123]\.php$/', $_SERVER['SCRIPT_NAME'])) {
     include_once(G5_PATH.'/simple_inquiry.php');
 }
 ?>

@@ -21,11 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         exit;
     }
     
-    // SMTP 설정이 있으면 SMTP 사용, 없으면 fallback 사용
+    // 문의폼과 동일하게 로컬 Postfix(config)만 사용 (DB 외부 SMTP 분기 제외)
     $result = send_mail_via_smtp(
         $test_email,
         '테스트 메일',
-        '<h2>테스트 메일</h2><p>이 메일은 테스트를 위해 발송되었습니다.</p><p>발송 시간: ' . date('Y-m-d H:i:s') . '</p>'
+        '<h2>테스트 메일</h2><p>이 메일은 테스트를 위해 발송되었습니다.</p><p>발송 시간: ' . date('Y-m-d H:i:s') . '</p>',
+        false
     );
     
     if ($result['success']) {
@@ -207,8 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
                     $newsletter_html = '<html><body><h1>' . htmlspecialchars($subject) . '</h1>' . $newsletter_content . '</body></html>';
                 }
                 
-                // SMTP 설정이 있으면 SMTP 사용, 없으면 fallback 사용
-                $result = send_mail_via_smtp($email, $subject, $newsletter_html);
+                $result = send_mail_via_smtp($email, $subject, $newsletter_html, false);
                 
                 if ($result['success']) {
                     $success_count++;

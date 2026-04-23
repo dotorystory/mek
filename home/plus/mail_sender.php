@@ -2,6 +2,28 @@
 if (!defined('_GNUBOARD_')) exit;
 
 /**
+ * 로컬 Postfix 제출: `lib/mailer.lib.php` + `config.php`의 G5_SMTP_PORT / G5_SMTP_SECURE 와 동일.
+ * 샘플(mail_sender_sample → mailer)은 587+TLS, 기존 폴백은 25만 사용해 동작이 갈리던 것을 맞춤.
+ *
+ * @param PHPMailer $mail
+ */
+function mekeng_phpmailer_apply_local_postfix($mail) {
+    $mail->Host = '127.0.0.1';
+    $mail->Port = (defined('G5_SMTP_PORT') && G5_SMTP_PORT !== '' && (int) G5_SMTP_PORT > 0)
+        ? (int) G5_SMTP_PORT
+        : 25;
+    $use_secure = defined('G5_SMTP_SECURE') ? G5_SMTP_SECURE : '';
+    if ($use_secure === 'tls' || $use_secure === 'ssl') {
+        $mail->SMTPSecure = $use_secure;
+        $mail->SMTPAutoTLS = true;
+    } else {
+        $mail->SMTPSecure = false;
+        $mail->SMTPAutoTLS = false;
+    }
+    $mail->SMTPAuth = false;
+}
+
+/**
  * PHPMailer를 사용하여 SMTP로 메일 발송
  * @param string $to 수신 이메일
  * @param string $subject 제목
@@ -25,7 +47,7 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true, $a
         if ($use_smtp_config) {
             $smtp_config = sql_fetch("SELECT * FROM g5_smtp_config WHERE sc_active = 1 LIMIT 1");
             
-            // 로컬 postfix 사용 옵션이 있으면 mail() 함수로 직접 발송
+            // 로컬 postfix: PHPMailer 127.0.0.1:25 폴백(첨부·List-Unsubscribe 포함)
             if ($smtp_config && isset($smtp_config['sc_use_local_postfix']) && $smtp_config['sc_use_local_postfix'] == 1) {
                 return send_mail_via_smtp_fallback($to, $subject, $content, '', $attachments, $add_list_unsubscribe);
             }
@@ -55,12 +77,16 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true, $a
                 
                 $mail->CharSet = 'UTF-8';
                 $mail->Encoding = 'base64';
-                
+                // 대용량 첨부(수 MB×다수)·느린 릴레이 시 기본 타임아웃(300초)으로 중단되는 경우 방지
+                $mail->Timeout = 600;
+
                 $from_email = $smtp_config['sc_from_email'];
                 $from_name = !empty($smtp_config['sc_from_name']) ? $smtp_config['sc_from_name'] : $config['cf_title'];
                 
                 $mail->setFrom($from_email, $from_name);
                 $mail->addReplyTo($from_email, $from_name);
+                // 네이버 등: envelope(MAIL FROM)과 From 도메인 정렬·SPF 통과에 유리
+                $mail->Sender = $from_email;
             } else {
                 // SMTP 설정이 없으면 기본 설정 사용
                 return send_mail_via_smtp_fallback($to, $subject, $content, '', $attachments, $add_list_unsubscribe);
@@ -73,11 +99,13 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true, $a
                 $mail->Port = defined('G5_SMTP_PORT') ? intval(G5_SMTP_PORT) : 587;
                 $mail->SMTPSecure = 'tls';
                 $mail->SMTPAuth = true;
+                $mail->Timeout = 600;
                 // 기본 SMTP 인증 정보는 설정 파일에 없으므로 사용자 입력 필요
-                // 포털 메일 발송을 위해 SPF가 설정된 webmail.mekeng.com 도메인 사용
-                $from_email = 'sales@mekeng.com';
+                // 포털 메일: 실제 릴레이 호스트(webmail)와 동일 도메인 권장(네이버 5.7.2 완화)
+                $from_email = 'msk@mekeng.com';
                 $from_name = $config['cf_title'] ?? '';
                 $mail->setFrom($from_email, $from_name);
+                $mail->Sender = $from_email;
             } else {
                 return send_mail_via_smtp_fallback($to, $subject, $content, '', $attachments, $add_list_unsubscribe);
             }
@@ -112,7 +140,9 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true, $a
         if (empty($msg_id_domain)) {
             $msg_id_domain = 'mekeng.com';
         }
-        $mail->addCustomHeader('Message-ID', '<' . uniqid('mek.', true) . '.' . time() . '@' . $msg_id_domain . '>');
+        // PHPMailer가 기본 Message-ID 헤더를 생성하므로 addCustomHeader로 추가하면 중복 헤더가 되어
+        // Gmail(5.7.1 RFC 5322)에서 차단될 수 있다.
+        $mail->MessageID = '<' . uniqid('mek.', true) . '.' . time() . '@' . $msg_id_domain . '>';
         $mail->addCustomHeader('X-Mailer', 'MEK-WebMailer/1.0');
         if ($add_list_unsubscribe && function_exists('generate_unsubscribe_key')) {
             $base_url = defined('G5_URL') ? rtrim(G5_URL, '/') : '';
@@ -127,23 +157,26 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true, $a
         // $mail->SMTPDebug = 2;
         // $mail->Debugoutput = 'error_log';
         
+        if (empty($mail->Sender) && !empty($mail->From)) {
+            $mail->Sender = $mail->From;
+        }
         if ($mail->send()) {
             return ['success' => true, 'error' => ''];
         } else {
-            // SMTP 발송 실패 시 mail() 함수로 자동 폴백
+            // SMTP 발송 실패 시 로컬 Postfix( mailer() 와 동일 포트/TLS )로 폴백
             $error_info = $mail->ErrorInfo;
             return send_mail_via_smtp_fallback($to, $subject, $content, $error_info, $attachments, $add_list_unsubscribe);
         }
         
     } catch (\Exception $e) {
-        // 예외 발생 시 mail() 함수로 자동 폴백
+        // 예외 시 동일 폴백
         return send_mail_via_smtp_fallback($to, $subject, $content, $e->getMessage(), $attachments, $add_list_unsubscribe);
     }
 }
 
 /**
- * SMTP 설정이 없을 때 또는 SMTP 발송 실패 시 PHP mail() 함수로 폴백
- * postfix가 제대로 설정되어 있으면 포털 메일로도 정상 발송됨
+ * SMTP 설정이 없을 때·로컬 Postfix 옵션·외부 SMTP 실패 시 127.0.0.1:25(PHPMailer)로 폴백
+ * apache sendmail(mail()) 제한을 피하고 발신 도메인을 webmail과 맞춤
  * 
  * @param string $to 수신 이메일
  * @param string $subject 제목
@@ -155,78 +188,132 @@ function send_mail_via_smtp($to, $subject, $content, $use_smtp_config = true, $a
  */
 function send_mail_via_smtp_fallback($to, $subject, $content, $smtp_error = '', $attachments = array(), $add_list_unsubscribe = false) {
     global $config;
-    
-    $from_email = 'sales@mekeng.com';
-    $from_name = $config['cf_title'] ?? '';
-    
-    if (preg_match('/[^\x00-\x7F]/', $subject)) {
-        $encoded_subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
-    } else {
-        $encoded_subject = $subject;
+
+    // 로컬 Postfix: mailer()와 동일하게 config 포트(예: 587)+TLS 사용.
+    $from_email = (defined('G5_MAIL_FROM') && G5_MAIL_FROM) ? G5_MAIL_FROM : 'msk@mekeng.com';
+    $from_name = (defined('G5_MAIL_FROM_NAME') && G5_MAIL_FROM_NAME) ? G5_MAIL_FROM_NAME : ($config['cf_title'] ?? '');
+
+    if (!class_exists('PHPMailer')) {
+        include_once(G5_PHPMAILER_PATH.'/PHPMailerAutoload.php');
     }
-    
-    $headers = 'From: ' . $from_email . "\r\n";
-    $headers .= 'Reply-to: ' . $from_email . "\r\n";
-    $msg_id_domain = (defined('G5_URL') && G5_URL) ? parse_url(G5_URL, PHP_URL_HOST) : 'mekeng.com';
-    if (empty($msg_id_domain)) {
-        $msg_id_domain = 'mekeng.com';
-    }
-    $headers .= 'Message-ID: <' . uniqid('mek.', true) . '.' . time() . '@' . $msg_id_domain . '>' . "\r\n";
-    $headers .= 'X-Mailer: MEK-WebMailer/1.0' . "\r\n";
-    if ($add_list_unsubscribe && function_exists('generate_unsubscribe_key')) {
-        $base_url = defined('G5_URL') ? rtrim(G5_URL, '/') : '';
-        $unsub_url = $base_url . '/plus/mailer/?action=unsubscribe&key=' . urlencode(generate_unsubscribe_key($to)) . '&email=' . urlencode($to);
-        if (!empty(trim($base_url))) {
-            $headers .= 'List-Unsubscribe: <' . $unsub_url . '>' . "\r\n";
-            $headers .= 'List-Unsubscribe-Post: List-Unsubscribe=One-Click' . "\r\n";
-        }
-    }
-    
-    $body = $content;
-    
-    // 첨부파일이 있으면 multipart/mixed 로 본문 구성
-    if (!empty($attachments)) {
-        $boundary = '----=_Part_' . md5(uniqid((string)mt_rand(), true));
-        $headers .= 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-Type: multipart/mixed; boundary="' . $boundary . '"' . "\r\n";
-        $body = '--' . $boundary . "\r\n";
-        $body .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
-        $body .= 'Content-Transfer-Encoding: base64' . "\r\n\r\n";
-        $body .= chunk_split(base64_encode($content)) . "\r\n";
-        
+
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        mekeng_phpmailer_apply_local_postfix($mail);
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+        $mail->Timeout = 600;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ),
+        );
+
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $content;
+        $mail->AltBody = strip_tags($content);
+
+        $mail->setFrom($from_email, $from_name);
+        $mail->Sender = $from_email;
+        $mail->addReplyTo($from_email, $from_name);
+        $mail->clearAddresses();
+        $mail->addAddress($to);
+
         foreach ($attachments as $att) {
-            if (empty($att['path']) || !is_readable($att['path'])) {
-                continue;
+            if (!empty($att['path']) && is_readable($att['path'])) {
+                $name = isset($att['name']) && $att['name'] !== '' ? $att['name'] : basename($att['path']);
+                $mail->addAttachment($att['path'], $name);
             }
-            $name = isset($att['name']) && $att['name'] !== '' ? $att['name'] : basename($att['path']);
-            $filename_safe = '=?UTF-8?B?' . base64_encode($name) . '?=';
-            $body .= '--' . $boundary . "\r\n";
-            $body .= 'Content-Type: application/octet-stream; name="' . $filename_safe . '"' . "\r\n";
-            $body .= 'Content-Transfer-Encoding: base64' . "\r\n";
-            $body .= 'Content-Disposition: attachment; filename="' . $filename_safe . '"' . "\r\n\r\n";
-            $body .= chunk_split(base64_encode(file_get_contents($att['path']))) . "\r\n";
         }
-        $body .= '--' . $boundary . '--';
-    } else {
-        $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-    }
-    
-    $result = @mail($to, $encoded_subject, $body, $headers);
-    
-    if ($result) {
-        return [
+
+        $msg_id_domain = (defined('G5_URL') && G5_URL) ? parse_url(G5_URL, PHP_URL_HOST) : 'webmail.mekeng.com';
+        if (empty($msg_id_domain)) {
+            $msg_id_domain = 'webmail.mekeng.com';
+        }
+        // 중복 Message-ID 헤더 방지 (Gmail RFC 5322 차단 대응)
+        $mail->MessageID = '<' . uniqid('mek.', true) . '.' . time() . '@' . $msg_id_domain . '>';
+        $mail->addCustomHeader('X-Mailer', 'MEK-WebMailer/1.0');
+        if ($add_list_unsubscribe && function_exists('generate_unsubscribe_key')) {
+            $base_url = defined('G5_URL') ? rtrim(G5_URL, '/') : '';
+            $unsub_url = $base_url . '/plus/mailer/?action=unsubscribe&key=' . urlencode(generate_unsubscribe_key($to)) . '&email=' . urlencode($to);
+            if (!empty(trim($base_url))) {
+                $mail->addCustomHeader('List-Unsubscribe', '<' . $unsub_url . '>');
+                $mail->addCustomHeader('List-Unsubscribe-Post', 'List-Unsubscribe=One-Click');
+            }
+        }
+
+        $mail->send();
+        return array(
             'success' => true,
-            'error' => $smtp_error ? 'SMTP 실패 후 mail() 함수로 발송 성공' : ''
-        ];
-    } else {
-        $error_msg = 'PHP mail() 함수로 발송 실패';
-        if ($smtp_error) {
-            $error_msg .= ' (SMTP 오류: ' . $smtp_error . ')';
+            'error' => $smtp_error ? 'SMTP 실패 후 로컬 Postfix로 재발송 성공' : ''
+        );
+    } catch (\Exception $e) {
+        $msg = $e->getMessage();
+        if (isset($mail) && is_object($mail) && !empty($mail->ErrorInfo)) {
+            $msg .= ' [' . $mail->ErrorInfo . ']';
         }
-        return [
+        if (function_exists('error_log')) {
+            error_log('send_mail_via_smtp_fallback: ' . $msg);
+        }
+        return array(
             'success' => false,
-            'error' => $error_msg
-        ];
+            'error' => '로컬 Postfix 발송 실패' . ($smtp_error ? ' (이전 SMTP: ' . $smtp_error . ')' : '') . ': ' . $msg
+        );
+    }
+}
+
+/**
+ * 문의 폼 등 웹(Apache)에서 sales@webmail 등으로 HTML 메일 발송.
+ * Postfix authorized_submit_users 로 apache 의 sendmail(mail()) 경로가 막혀 있으므로
+ * 로컬 Postfix로 제출한다. 포트/TLS는 config(G5_SMTP_PORT, G5_SMTP_SECURE)와 mailer() 동일.
+ *
+ * @param string $to      수신 주소
+ * @param string $subject 제목 (MIME 인코딩된 문자열 가능)
+ * @param string $html_body HTML 본문
+ * @param string $from_email From / Reply-To (문의자 메일). envelope(반송)은 사내 주소로 고정.
+ * @return bool
+ */
+function mekeng_form_send_html_mail($to, $subject, $html_body, $from_email) {
+    if (!class_exists('PHPMailer')) {
+        include_once(G5_PHPMAILER_PATH.'/PHPMailerAutoload.php');
+    }
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        mekeng_phpmailer_apply_local_postfix($mail);
+        $mail->CharSet = 'UTF-8';
+        $mail->Timeout = 60;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ),
+        );
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $html_body;
+        $mail->clearAddresses();
+        $mail->addAddress($to);
+        $from_email = trim($from_email);
+        if ($from_email === '') {
+            $from_email = 'noreply@mekeng.com';
+        }
+        $mail->setFrom($from_email);
+        $mail->addReplyTo($from_email);
+        // setFrom만 쓰면 MAIL FROM=문의자가 되어 수신 거절 시 반송이 문의자에게 감
+        $mail->Sender = 'msk@mekeng.com';
+        $mail->send();
+        return true;
+    } catch (\Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('mekeng_form_send_html_mail: '.$e->getMessage());
+        }
+        return false;
     }
 }
 

@@ -169,16 +169,24 @@ define('G5_SPECIAL',        64); // 특수문자
 define('G5_SEO_TITLE_WORD_CUT', 8);        // SEO TITLE 문단 길이
 
 // 퍼미션
-define('G5_DIR_PERMISSION',  0755); // 디렉토리 생성시 퍼미션
-define('G5_FILE_PERMISSION', 0644); // 파일 생성시 퍼미션
+define('G5_DIR_PERMISSION',  0775); // 디렉토리 생성시 퍼미션
+define('G5_FILE_PERMISSION', 0664); // 파일 생성시 퍼미션
 
 // 모바일 인지 결정 $_SERVER['HTTP_USER_AGENT']
 define('G5_MOBILE_AGENT',   'phone|samsung|lgtel|mobile|[^A]skt|nokia|blackberry|BB10|android|sony');
 
-// SMTP
+// // SMTP
+// // lib/mailer.lib.php 에서 사용 (로컬은 25 smtp 권장; 587은 submission이라 PHPMailer와 조합 시 지연 가능)
+// define('G5_SMTP',      '127.0.0.1');
+// define('G5_SMTP_PORT', '25');
+
+// SMTP (Postfix virtual + submission 587)
 // lib/mailer.lib.php 에서 사용
-define('G5_SMTP',      '127.0.0.1');
-define('G5_SMTP_PORT', '587');
+define('G5_SMTP',        '127.0.0.1');
+define('G5_SMTP_PORT',   '587');          // submission 포트 (25 연결 실패 시 사용)
+define('G5_SMTP_SECURE', 'tls');          // 587은 STARTTLS
+define('G5_MAIL_FROM',      'msk@mekeng.com');
+define('G5_MAIL_FROM_NAME', 'MEK Inc. & MEK Eng.');
 
 
 /********************

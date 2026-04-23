@@ -1,6 +1,7 @@
 <?php
 include_once('./_common.php');
 include_once(G5_PATH.'/plus/mail_sender.php');
+include_once(G5_CAPTCHA_PATH.'/captcha.lib.php');
 
 $menuCodeParent = 4;
 $menuCodeChild = 1;
@@ -141,11 +142,17 @@ include_once(G5_PATH.'/head.php');
               <div class="desc">
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
                   <div style="display: flex; align-items: center;">
-                    <input type="checkbox" name="agree" id="agree" checked required class="required" style="width: auto; margin-right: 8px;">
+                    <input type="checkbox" name="agree" id="agree" required class="required" style="width: auto; margin-right: 8px;">
                     <label for="agree" style="margin: 0; display: inline;">Ich stimme der 'Erfassung und Nutzung personenbezogener Daten' zu.</label>
                   </div>
                   <a href="javascript:void(0);" id="showPrivacyModal" style="color: #1a4691; text-decoration: underline; font-size: 13px; margin-left: 10px; cursor: pointer;">Erfassung und Nutzung personenbezogener Daten</a>
                 </div>
+              </div>
+            </li>
+            <li>
+              <label class="lbl">Spam-Schutz (CAPTCHA)</label>
+              <div class="desc">
+                <?php echo captcha_html(); ?>
               </div>
             </li>
           </ul>

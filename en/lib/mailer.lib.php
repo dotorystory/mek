@@ -23,78 +23,46 @@ function mailer($fname, $fmail, $to, $subject, $content, $type=0, $file="", $cc=
     }
 
     $mail_send_result = false;
+    $mail = null;
 
     try {
         $mail = new PHPMailer(); // defaults to using php "mail()"
         if (defined('G5_SMTP') && G5_SMTP) {
-            $mail->IsSMTP(); // telling the class to use SMTP
-            $mail->Host = G5_SMTP; // SMTP server
-            if(defined('G5_SMTP_PORT') && G5_SMTP_PORT)
-                $mail->Port = G5_SMTP_PORT;
-            else
-                $mail->Port = 25; // 기본 포트 설정
-            
-            // // 로컬 SMTP 서버(127.0.0.1)를 사용할 때는 TLS와 인증 비활성화
-            //if (G5_SMTP == '127.0.0.1' || G5_SMTP == 'localhost') {
-            //    $mail->SMTPAuth = false;
-            //    $mail->SMTPSecure = false;
-            //    $mail->SMTPAutoTLS = false;
-            //    $mail->SMTPOptions = array(
-            //        'ssl' => array(
-            //            'verify_peer' => false,
-            //            'verify_peer_name' => false,
-            //            'allow_self_signed' => true
-            //        )
-            //    );
-            //} else {
-            //    // 외부 SMTP 서버를 사용할 때는 TLS와 인증 활성화
-            //    $mail->SMTPAuth = true;
-            //    $mail->SMTPSecure = 'tls';
-            //    $mail->SMTPAutoTLS = true;
-            //    $mail->SMTPOptions = array(
-            //        'ssl' => array(
-            //            'verify_peer' => true,
-            //            'verify_peer_name' => true,
-            //            'allow_self_signed' => true
-            //        )
-            //    );
-            //}
+            $mail->IsSMTP();
+            $mail->Host = G5_SMTP;
+            $mail->Port = (defined('G5_SMTP_PORT') && G5_SMTP_PORT) ? (int)G5_SMTP_PORT : 25;
 
-	    // submission 587 port - 안정적인 설정
-	    $mail->SMTPAuth = false;
-	    $mail->SMTPSecure = false;  // TLS 비활성화로 변경
-	    $mail->SMTPAutoTLS = false; // 자동 TLS 비활성화
-	    
-	    // 타임아웃 설정 추가
-	    $mail->Timeout = 30;
-	    $mail->SMTPKeepAlive = true;
-	    
-	    $mail->SMTPOptions = array(
-		'ssl' => array(
-			'verify_peer' => false,
-			'verify_peer_name' => false,
-			'allow_self_signed' => true
-		)
-	    ); 
+            // Postfix submission 587: STARTTLS 사용. 로컬에서 TLS 미사용 시 config에서 G5_SMTP_SECURE 비우기
+            $use_secure = defined('G5_SMTP_SECURE') ? G5_SMTP_SECURE : '';
+            if ($use_secure === 'tls' || $use_secure === 'ssl') {
+                $mail->SMTPSecure = $use_secure;
+                $mail->SMTPAutoTLS = true;
+            } else {
+                $mail->SMTPAuth = false;
+                $mail->SMTPSecure = false;
+                $mail->SMTPAutoTLS = false;
+            }
+            $mail->SMTPAuth = false; // Postfix local/virtual 보통 인증 없음
+            $mail->Timeout = 30;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
         }
         
         $mail->CharSet = 'UTF-8';
 
-        // 기존 설정
-        $mail->From = $fmail;
-        $mail->FromName = $fname;
-        
-        // // 기본 발신자 주소 설정
-        // if (defined('G5_MAIL_FROM') && G5_MAIL_FROM) {
-        //     $mail->From = G5_MAIL_FROM;
-        // } else {
-        //     $mail->From = $fmail;
-        // }
-        // if (defined('G5_MAIL_FROM_NAME') && G5_MAIL_FROM_NAME) {
-        //     $mail->FromName = G5_MAIL_FROM_NAME;
-        // } else {
-        //     $mail->FromName = $fname;
-        // }
+        // Virtual 메일: config 발신자 사용. 미설정 시 기존 $fmail/$fname 사용
+        if (defined('G5_MAIL_FROM') && G5_MAIL_FROM) {
+            $mail->From = G5_MAIL_FROM;
+            $mail->FromName = (defined('G5_MAIL_FROM_NAME') && G5_MAIL_FROM_NAME) ? G5_MAIL_FROM_NAME : $fname;
+        } else {
+            $mail->From = $fmail;
+            $mail->FromName = $fname;
+        }
 
         $mail->Subject = $subject;
         $mail->AltBody = ""; // optional, comment out and test
@@ -119,15 +87,32 @@ function mailer($fname, $fmail, $to, $subject, $content, $type=0, $file="", $cc=
         
     } catch (Exception $e) {
         error_log("Mail sending error: " . $e->getMessage());
-        // 디버깅을 위한 추가 로그
-        if (defined('G5_DEBUG') && G5_DEBUG) {
+        if (defined('G5_DEBUG') && G5_DEBUG && $mail !== null && isset($mail->ErrorInfo)) {
             error_log("PHPMailer Debug Info: " . print_r($mail->ErrorInfo, true));
         }
+        mailer_log('FAIL', $to, $subject, $e->getMessage() . ($mail !== null && isset($mail->ErrorInfo) ? ' | ' . $mail->ErrorInfo : ''));
+    }
+    if ($mail_send_result) {
+        mailer_log('OK', $to, $subject, '');
     }
 
     run_event('mail_send_result', $mail_send_result, $mail, $to, $cc, $bcc);
 
     return $mail_send_result;
+}
+
+// 메일 발송 결과 로그 (data/log/mail.log)
+function mailer_log($status, $to, $subject, $error_msg) {
+    if (!defined('G5_DATA_PATH') || !G5_DATA_PATH) return;
+    $subject = is_string($subject) ? $subject : '';
+    $to = is_string($to) ? $to : '';
+    $error_msg = is_string($error_msg) ? $error_msg : '';
+    $log_dir = G5_DATA_PATH.'/log';
+    if (!is_dir($log_dir)) @mkdir($log_dir, 0755, true);
+    $log_file = $log_dir.'/mail.log';
+    $line = date('Y-m-d H:i:s').' ['.$status.'] to='.$to.' subject='.str_replace(["\r","\n"], ' ', $subject);
+    if ($error_msg !== '') $line .= ' error='.str_replace(["\r","\n"], ' ', $error_msg);
+    @file_put_contents($log_file, $line.PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
 // 파일을 첨부함

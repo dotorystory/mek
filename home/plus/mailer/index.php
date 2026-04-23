@@ -187,11 +187,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $test_html = '<html><body><h2>테스트 메일</h2>' . $test_content . '</body></html>';
     }
     
-    // SMTP 설정이 있으면 SMTP 사용, 없으면 fallback 사용
+    // 문의폼(mekeng_form_send_html_mail)과 동일: g5_smtp_config 외부 SMTP 분기 없이 config의 로컬 Postfix만 사용
     $result = send_mail_via_smtp(
         $test_email,
         '테스트 메일 - 연하장 스타일',
-        $test_html
+        $test_html,
+        false
     );
     
     if ($result['success']) {
@@ -404,12 +405,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
 
         $total_emails = count($emails);
 
-        // 1회 발송 건수 상한 (다우오피스 IP Rate Control·스팸 오인 방지)
-        $mailer_max_per_run = 100;
-        if ($total_emails > $mailer_max_per_run) {
-            alert('한 번에 최대 ' . $mailer_max_per_run . '건까지 발송할 수 있습니다. 발송 대상을 나누어 주세요.', './');
+        // 배치당 최대 건수(다우오피스 IP Rate Control·스팸 완화). 전체는 여러 배치로 순차 발송·건별 로그 기록.
+        $mailer_chunk_size = 50;
+        $mailer_max_per_request = 5000;
+        if ($total_emails > $mailer_max_per_request) {
+            alert('한 번의 요청으로 발송 가능한 최대 건수는 ' . number_format($mailer_max_per_request) . '건입니다. CSV를 나누어 주세요.', './');
             exit;
         }
+        $email_batches = array_chunk(array_values($emails), $mailer_chunk_size);
+        $batch_count = count($email_batches);
 
         $use_iframe_modal = !empty($_POST['mail_modal']);
 
@@ -422,10 +426,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
             header('Content-Type: text/html; charset=utf-8');
             header('X-Accel-Buffering: no');
         }
+        @ini_set('zlib.output_compression', '0');
+        if (function_exists('apache_setenv')) {
+            @apache_setenv('no-gzip', '1');
+        }
 
         if ($use_iframe_modal) {
             // 모달 모드: iframe에 로드되며 postMessage로 부모 창에 진행 상황 전달 (페이지 CSS 유지)
-            echo '<!DOCTYPE html><html><body><script>try{window.parent.postMessage(' . json_encode(array('type' => 'mail_start', 'total' => (int)$total_emails)) . ',"*");}catch(e){}</script>';
+            echo '<!DOCTYPE html><html><body>';
+            // 일부 프록시/버퍼가 소량 출력을 묶는 경우 대비(진행 스크립트가 바로 전달되도록)
+            echo '<!--' . str_repeat(' ', 2048) . '-->';
+            echo '<script>try{window.parent.postMessage(' . json_encode(array('type' => 'mail_start', 'total' => (int)$total_emails)) . ',"*");}catch(e){}</script>';
             if (ob_get_level()) {
                 ob_end_flush();
             }
@@ -446,9 +457,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
         $fail_count = 0;
         $fail_emails = array();
         $sent_so_far = 0;
+        $mail_line_index = 0;
 
-        foreach ($emails as $email) {
+        foreach ($email_batches as $batch_idx => $batch_emails) {
+            foreach ($batch_emails as $email) {
             try {
+                $mail_line_index++;
                 // 이메일 유효성 검증
                 if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     continue;
@@ -474,9 +488,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
                 } else {
                     $newsletter_html = '<html><body><h1>' . htmlspecialchars($subject) . '</h1>' . $newsletter_content . '</body></html>';
                 }
+
+                // 대용량 첨부 시 첫 통 전송만 수 분 걸릴 수 있음 → 전송 직전에 UI 갱신(0/N에서 멈춘 것처럼 보이지 않도록)
+                $has_attach = !empty($attachments);
+                if ($use_iframe_modal) {
+                    echo '<script>try{window.parent.postMessage(' . json_encode(array(
+                        'type' => 'mail_attempt',
+                        'current' => $mail_line_index,
+                        'total' => $total_emails,
+                        'has_attach' => $has_attach,
+                    )) . ',"*");}catch(e){}</script>';
+                } else {
+                    echo '<script>var el=document.getElementById("mail-progress");if(el)el.textContent="메일 전송 중… (' . $mail_line_index . '/' . $total_emails . ')' . ($has_attach ? ' 대용량 첨부로 1통당 수 분 걸릴 수 있습니다.' : '') . '";</script>';
+                }
+                if (ob_get_level()) {
+                    ob_flush();
+                }
+                flush();
                 
                 // SMTP 설정이 있으면 SMTP 사용, 없으면 fallback 사용 (첨부파일 포함, 뉴스레터 시 List-Unsubscribe 헤더 추가)
-                $result = send_mail_via_smtp($email, $subject, $newsletter_html, true, $attachments, true);
+                $result = send_mail_via_smtp($email, $subject, $newsletter_html, false, $attachments, true);
                 
                 // 메일 발송 로그 기록 (새로운 로그 시스템)
                 // 직접 입력(direct) 또는 CSV(csv) 발송 시 g5_subscribe 테이블에 자동 등록됨
@@ -498,14 +529,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
                 }
                 
                 $sent_so_far++;
-                if ($sent_so_far % 10 === 0 || $sent_so_far === $total_emails) {
-                    if ($use_iframe_modal) {
-                        echo '<script>try{window.parent.postMessage(' . json_encode(array('type' => 'mail_progress', 'sent' => $sent_so_far, 'total' => $total_emails)) . ',"*");}catch(e){}</script>';
-                    } else {
-                        echo '<script>var el=document.getElementById("mail-progress");if(el)el.textContent="메일 발송 중… (' . $sent_so_far . '/' . $total_emails . ')";</script>';
-                    }
-                    flush();
+                if ($use_iframe_modal) {
+                    echo '<script>try{window.parent.postMessage(' . json_encode(array('type' => 'mail_progress', 'sent' => $sent_so_far, 'total' => $total_emails)) . ',"*");}catch(e){}</script>';
+                } else {
+                    echo '<script>var el=document.getElementById("mail-progress");if(el)el.textContent="메일 발송 완료 ' . $sent_so_far . '/' . $total_emails . '";</script>';
                 }
+                if (ob_get_level()) {
+                    ob_flush();
+                }
+                flush();
                 // 발송 간격(Throttling): 다우오피스 IP Rate Control·수신측 제한 완화 (1건 발송 시에는 대기 없음)
                 if ($total_emails > 1 && $sent_so_far < $total_emails) {
                     sleep(2);
@@ -517,17 +549,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
                 $fail_count++;
                 $fail_emails[] = $email . ' (예외: ' . htmlspecialchars($e->getMessage()) . ')';
                 $sent_so_far++;
-                if ($sent_so_far % 10 === 0 || $sent_so_far === $total_emails) {
-                    if ($use_iframe_modal) {
-                        echo '<script>try{window.parent.postMessage(' . json_encode(array('type' => 'mail_progress', 'sent' => $sent_so_far, 'total' => $total_emails)) . ',"*");}catch(e){}</script>';
-                    } else {
-                        echo '<script>var el=document.getElementById("mail-progress");if(el)el.textContent="메일 발송 중… (' . $sent_so_far . '/' . $total_emails . ')";</script>';
-                    }
-                    flush();
+                if ($use_iframe_modal) {
+                    echo '<script>try{window.parent.postMessage(' . json_encode(array('type' => 'mail_progress', 'sent' => $sent_so_far, 'total' => $total_emails)) . ',"*");}catch(e){}</script>';
+                } else {
+                    echo '<script>var el=document.getElementById("mail-progress");if(el)el.textContent="메일 발송 완료 ' . $sent_so_far . '/' . $total_emails . ' (일부 오류)";</script>';
                 }
+                if (ob_get_level()) {
+                    ob_flush();
+                }
+                flush();
                 if ($total_emails > 1 && $sent_so_far < $total_emails) {
                     sleep(2);
                 }
+            }
+            }
+            // 배치 사이 추가 대기(수신측·게이트웨이 부하 완화). 마지막 배치 뒤에는 생략.
+            if ($batch_idx < $batch_count - 1) {
+                sleep(4);
             }
         }
 
@@ -548,7 +586,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
                 }
             }
         }
-        
+        if ($batch_count > 1) {
+            $result_message .= "\n\n※ 발송을 {$batch_count}개 배치로 나누어 진행했습니다. (배치당 최대 {$mailer_chunk_size}건, 각 수신 건별 발송 로그 기록)";
+        }
+
         $_SESSION['mailer_result_message'] = $result_message;
         $_SESSION['mailer_fail_emails'] = $fail_emails;
         $_SESSION['mailer_success_count'] = $success_count;
@@ -623,6 +664,39 @@ if (function_exists('get_mail_send_stats')) {
 } else {
     $today_stats = array('total' => 0, 'success' => 0, 'fail' => 0);
 }
+
+// 오늘자 CSV 발송만 집계 (로그 기준: 발송 루틴을 탄 주소만 기록됨 — 형식 오류·수신거부 스킵은 미기록)
+$today_csv_stats = array('total' => 0, 'success' => 0, 'fail' => 0, 'unique_emails' => 0);
+$today_csv_failed_logs = array();
+if (function_exists('get_mail_send_stats')) {
+    $csv_row = get_mail_send_stats(array(
+        'date_from' => date('Y-m-d 00:00:00'),
+        'date_to' => date('Y-m-d 23:59:59'),
+        'send_type' => 'csv',
+    ));
+    if (is_array($csv_row)) {
+        $today_csv_stats['total'] = (int) ($csv_row['total'] ?? 0);
+        $today_csv_stats['success'] = (int) ($csv_row['success'] ?? 0);
+        $today_csv_stats['fail'] = (int) ($csv_row['fail'] ?? 0);
+        $today_csv_stats['unique_emails'] = (int) ($csv_row['unique_emails'] ?? 0);
+    }
+}
+if (function_exists('get_mail_send_logs')) {
+    $today_csv_failed_logs = get_mail_send_logs(array(
+        'send_type' => 'csv',
+        'success' => 0,
+        'date_from' => date('Y-m-d 00:00:00'),
+        'date_to' => date('Y-m-d'),
+        'limit' => 3000,
+    ));
+}
+$today_csv_fail_emails_only = array();
+foreach ($today_csv_failed_logs as $fl) {
+    if (!empty($fl['msl_email'])) {
+        $today_csv_fail_emails_only[] = $fl['msl_email'];
+    }
+}
+$today_csv_fail_emails_only = array_values(array_unique($today_csv_fail_emails_only));
 ?>
 
 <div class="mail-sender-container" style="max-width: 1200px; margin: 30px auto; padding: 20px;">
@@ -647,6 +721,78 @@ if (function_exists('get_mail_send_stats')) {
     </div>
     <?php endif; ?>
 
+    <!-- 오늘자 CSV 발송 집계 · 재발송용 실패 목록 -->
+    <?php if (($today_csv_stats['total'] ?? 0) > 0 || !empty($today_csv_failed_logs)): ?>
+    <div class="mail-form-section" style="border: 1px solid #b0d4f1; margin-bottom: 20px; background: #f0f8ff;">
+        <h2 style="margin-top: 0; color: #1565c0;">📊 오늘 날짜 · CSV 발송 집계 (로그 기준)</h2>
+        <p style="color: #555; font-size: 14px; line-height: 1.6; margin: 0 0 12px 0;">
+            아래 숫자는 <strong>g5_mail_send_log</strong>에 <code>msl_send_type = csv</code>로 저장된 건만 해당합니다.<br>
+            CSV에 있었지만 <strong>이메일 형식 오류·수신거부·빈 행</strong> 등으로 발송 시도 전에 건너뛴 주소는 <strong>로그에 남지 않습니다</strong>. (원본 CSV 행 수와 다를 수 있음)
+        </p>
+        <table style="width: 100%; max-width: 520px; border-collapse: collapse; font-size: 14px; margin-bottom: 16px;">
+            <tr style="background: #e3f2fd;">
+                <th style="padding: 10px; text-align: left; border: 1px solid #90caf9;">구분</th>
+                <th style="padding: 10px; text-align: right; border: 1px solid #90caf9;">건수</th>
+            </tr>
+            <tr>
+                <td style="padding: 8px 10px; border: 1px solid #ddd;">시도(로그 기록) — 성공+실패 합계</td>
+                <td style="padding: 8px 10px; border: 1px solid #ddd; text-align: right; font-weight: bold;"><?php echo number_format($today_csv_stats['total']); ?></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 10px; border: 1px solid #ddd;">실제 발송 성공</td>
+                <td style="padding: 8px 10px; border: 1px solid #ddd; text-align: right; color: #2e7d32; font-weight: bold;"><?php echo number_format($today_csv_stats['success']); ?></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 10px; border: 1px solid #ddd;">실패 <span style="color:#c62828;">(재발송 필요)</span></td>
+                <td style="padding: 8px 10px; border: 1px solid #ddd; text-align: right; color: #c62828; font-weight: bold;"><?php echo number_format($today_csv_stats['fail']); ?></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 10px; border: 1px solid #ddd;">고유 수신 이메일 수(당일 csv)</td>
+                <td style="padding: 8px 10px; border: 1px solid #ddd; text-align: right;"><?php echo number_format($today_csv_stats['unique_emails']); ?></td>
+            </tr>
+        </table>
+        <?php if (!empty($today_csv_fail_emails_only)): ?>
+        <p style="font-weight: 600; margin: 0 0 8px 0;">실패한 주소만 (재발송 시 「직접 입력」에 붙여 넣기)</p>
+        <textarea readonly rows="<?php echo min(12, max(3, count($today_csv_fail_emails_only))); ?>" style="width: 100%; max-width: 640px; font-family: monospace; font-size: 13px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"><?php echo htmlspecialchars(implode("\n", $today_csv_fail_emails_only), ENT_QUOTES, 'UTF-8'); ?></textarea>
+        <p style="font-size: 12px; color: #666; margin-top: 8px;">최대 3,000건까지 조회합니다. 더 많으면 아래 「메일 발송 로그 CSV 다운로드」에서 오늘·csv·실패만 필터해 받으세요.</p>
+        <?php endif; ?>
+        <?php if (!empty($today_csv_failed_logs)): ?>
+        <details style="margin-top: 14px;">
+            <summary style="cursor: pointer; color: #1565c0; font-weight: 600;">실패 건 상세 (오류 메시지)</summary>
+            <div style="max-height: 240px; overflow-y: auto; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <thead style="background: #f5f5f5; position: sticky; top: 0;">
+                        <tr>
+                            <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">이메일</th>
+                            <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">시각</th>
+                            <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">오류</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($today_csv_failed_logs as $fl): ?>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 6px 8px;"><?php echo htmlspecialchars($fl['msl_email'] ?? ''); ?></td>
+                            <td style="padding: 6px 8px; white-space: nowrap;"><?php echo htmlspecialchars($fl['msl_send_date'] ?? ''); ?></td>
+                            <td style="padding: 6px 8px; color: #b71c1c;"><?php
+                            $em = (string)($fl['msl_error_message'] ?? '');
+                            $em_short = function_exists('mb_substr') ? mb_substr($em, 0, 200, 'UTF-8') : substr($em, 0, 200);
+                            echo htmlspecialchars($em_short);
+                            ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </details>
+        <?php endif; ?>
+    </div>
+    <?php else: ?>
+    <div class="mail-form-section" style="border: 1px dashed #ccc; margin-bottom: 16px; padding: 16px; background: #fafafa;">
+        <strong>📊 오늘 날짜 · CSV 발송 로그</strong>
+        <p style="margin: 8px 0 0 0; color: #666; font-size: 14px;">오늘 00:00 이후 <code>csv</code> 유형으로 기록된 발송이 없습니다. (원본 CSV 행 수와 비교하려면 발송 후 이 영역을 확인하세요.)</p>
+    </div>
+    <?php endif; ?>
+
     <!-- 메일 발송 진행 모달 (어두운 배경 + 진행 텍스트) -->
     <div id="mail-send-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; flex-direction: column;">
         <div style="background: #fff; padding: 2rem; border-radius: 8px; min-width: 280px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
@@ -666,7 +812,7 @@ if (function_exists('get_mail_send_stats')) {
             </ol>
             <p style="margin: 0 0 8px 0; font-size: 14px; color: #555;"><strong>그 밖에</strong></p>
             <ul style="margin: 0 0 20px 0; padding-left: 20px; line-height: 1.7; color: #444;">
-                <li>1회 최대 발송 메일 수는 <strong>100건</strong>으로 제한됩니다. (스팸 방지 목적)</li>
+                <li>대량 발송 시 <strong>배치당 최대 50건</strong>씩 나누어 한 요청 안에서 순차 발송합니다. (건별 로그 기록, 다우·스팸 완화) 한 번에 최대 <strong>5,000건</strong>까지 가능하며, 그 이상은 CSV를 나누어 주세요.</li>
                 <li>주소 없는 메일, 반송된 메일은 다음 메일 전송 시 <strong>자동으로 메일 리스트에서 제외</strong>됩니다.</li> 
                 <li>메일 발송 로그의 <strong>발송 결과 리포트(CSV)</strong>를 다운받아, 차후 메일 발송 리스트 작성 시 해당 주소를 제외하는 것을 권장합니다.</li>
             </ul>
@@ -1041,9 +1187,12 @@ if (function_exists('get_mail_send_stats')) {
         if (!d || typeof d !== 'object' || !d.type) return;
         if (d.type === 'mail_start') {
             modal.style.display = 'flex';
-            progressEl.textContent = '메일 발송 중입니다… (0/' + (d.total || 0) + ')';
+            progressEl.textContent = '메일 발송 준비 중… (0/' + (d.total || 0) + ')';
+        } else if (d.type === 'mail_attempt') {
+            var hint = (d.has_attach ? ' 대용량 첨부 전송 중(1통당 수 분 걸릴 수 있음)' : '');
+            progressEl.textContent = '메일 전송 중… 목록 ' + (d.current || 0) + '/' + (d.total || 0) + hint;
         } else if (d.type === 'mail_progress') {
-            progressEl.textContent = '메일 발송 중입니다… (' + (d.sent || 0) + '/' + (d.total || 0) + ')';
+            progressEl.textContent = '메일 발송 완료 ' + (d.sent || 0) + '/' + (d.total || 0) + ' (다음 통 준비 중이면 잠시 대기)';
         } else if (d.type === 'mail_done') {
             modal.style.display = 'none';
             form.target = '';

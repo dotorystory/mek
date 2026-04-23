@@ -30,7 +30,7 @@ if(isset($_POST['simple_email'])) {
     $phone = $_POST['simple_phone'];
     $message = $_POST['simple_message'];
 
-    $email_to = "sales@webmail.mekeng.com";
+    $email_to = "msk@mekeng.com";
 
     $email_subject = "[간단 문의] ".$name."님의 문의";
     $email_subject = '=?UTF-8?B?'.base64_encode($email_subject).'?=';
@@ -50,7 +50,7 @@ if(isset($_POST['simple_email'])) {
     $headers .= 'Reply-to: '.$email_from."\r\n";
     $headers .= 'Content-type: text/html'."\r\n";
 
-    @mail($email_to, $email_subject, $email_message, $headers);
+    mekeng_form_send_html_mail($email_to, $email_subject, $email_message, $email_from);
     
     // 뉴스레터 구독 처리 (개인정보 동의 시 자동 구독)
     if (isset($_POST['simple_agree']) && $_POST['simple_agree'] == 'on') {
@@ -130,7 +130,7 @@ if(isset($_POST['simple_email'])) {
                 <div class="field_group">
                     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
                         <div style="display: flex; align-items: center;">
-                            <input type="checkbox" name="simple_agree" id="simple_agree" checked required class="required" style="width: auto; margin-right: 8px;">
+                            <input type="checkbox" name="simple_agree" id="simple_agree" required class="required" style="width: auto; margin-right: 8px;">
                             <label for="simple_agree" style="margin: 0; display: inline;">'개인정보 수집·이용'에 동의 합니다.</label>
                         </div>
                         <a href="javascript:void(0);" onclick="togglePrivacyContent()" style="color: #1a4691; text-decoration: underline; font-size: 13px; margin-left: 10px; cursor: pointer;">개인정보 수집·이용</a>

@@ -51,7 +51,7 @@ include_once(G5_PATH.'/head.php');
       <li><p><span class="overview_tit">主要業務</span><span class="overview_txt">WEB品質管理システム</span></p><p><i class="ri-briefcase-5-line"></i></p></li>
       <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">電話</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
       <li><p><span class="overview_tit">ファックス</span><span class="overview_txt"> <?php echo $default['de_admin_company_fax']; ?></span></p><p><i class="ri-file-paper-line"></i></p></li>
-      <li><a href="mailto:sales@webmail.mekeng.com" ><p><span class="overview_tit">メール</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
+      <li><a href="mailto:msk@mekeng.com" ><p><span class="overview_tit">メール</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
     </ul>
   </section>
   <section class="sub-section section04 sub-container" data-aos="fade-up"  data-aos-duration="2000">

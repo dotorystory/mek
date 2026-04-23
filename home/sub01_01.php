@@ -59,7 +59,7 @@ include_once(G5_PATH.'/head.php');
       <li><p><span class="overview_tit">주요 사업</span><span class="overview_txt">WEB 품질관리 시스템</span></p><p><i class="ri-briefcase-5-line"></i></p></li>
       <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">전화</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
       <li><p><span class="overview_tit">팩스</span><span class="overview_txt"> <?php echo $default['de_admin_company_fax']; ?></span></p><p><i class="ri-file-paper-line"></i></p></li>
-      <li><a href="mailto:sales@webmail.mekeng.com" ><p><span class="overview_tit">이메일</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
+      <li><a href="mailto:msk@mekeng.com" ><p><span class="overview_tit">이메일</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
     </ul>
   </section>
   <section class="sub-section section04 sub-container" data-aos="fade-up"  data-aos-duration="2000">
