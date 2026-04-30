@@ -46,10 +46,13 @@ require './elFinder.class.php';
 require './elFinderVolumeDriver.class.php';
 require './elFinderVolumeLocalFileSystem.class.php';
 
-$upload_base = '/var/www/html/mekeng.com/upload';
+$upload_base = '/var/www/html/storage/upload';
+$upload_url_base = '/storage/upload';
 $current_mb_id = $member['mb_id'];
 $current_level = (int)$member['mb_level'];
 $is_super = ($is_admin == 'super');
+
+if (!is_dir($upload_base)) { @mkdir($upload_base, 0775, true); @chmod($upload_base, 0775); }
 
 // 본인 폴더 경로 및 생성
 $my_path = $upload_base . '/' . $current_mb_id;
@@ -85,7 +88,7 @@ $roots = array();
 $roots[] = array(
     'driver'        => 'LocalFileSystem',
     'path'          => $my_path,
-    'URL'           => '/upload/' . $current_mb_id . '/',
+    'URL'           => $upload_url_base . '/' . $current_mb_id . '/',
     'alias'         => ($member['mb_name'] ? $member['mb_name'] . '님의 파일' : $current_mb_id),
     'uploadMaxSize' => '500M',
     'tmbPath'       => $my_path . '/.tmb',
@@ -105,7 +108,7 @@ foreach ($subordinate_members as $sub) {
     $root_config = array(
         'driver'        => 'LocalFileSystem',
         'path'          => $sub_path,
-        'URL'           => '/upload/' . $sub['mb_id'] . '/',
+        'URL'           => $upload_url_base . '/' . $sub['mb_id'] . '/',
         'alias'         => $alias,
         'uploadMaxSize' => '500M',
         'tmbPath'       => $sub_path . '/.tmb',
