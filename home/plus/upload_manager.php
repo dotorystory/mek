@@ -259,22 +259,14 @@ jQuery(document).ready(function($) {
             }
         },
         handlers: {
-            // 업로드 완료 시
-            upload: function(event, instance) {
+            upload: function(event, fm) {
                 if (event.data && event.data.added && event.data.added.length > 0) {
-                    console.log('업로드 완료:', event.data.added.length + '개 파일');
-                    setTimeout(function() {
-                        location.reload();
-                    }, 2000);
+                    fm.reload();
                 }
             },
-            // 삭제 완료 시
-            rm: function(event, instance) {
+            rm: function(event, fm) {
                 if (event.data && event.data.removed && event.data.removed.length > 0) {
-                    console.log('삭제 완료:', event.data.removed.length + '개 파일');
-                    setTimeout(function() {
-                        location.reload();
-                    }, 1500);
+                    fm.reload();
                 }
             },
             // 초기 로드 완료 시 - UI 펼치기

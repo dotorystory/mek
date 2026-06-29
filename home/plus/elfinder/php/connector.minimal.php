@@ -1,4 +1,8 @@
 <?php
+if (!defined('G5_IS_ELINDER_CONNECTOR')) {
+    define('G5_IS_ELINDER_CONNECTOR', true);
+}
+
 /**
  * elFinder Connector for Gnuboard
  *
@@ -47,7 +51,6 @@ require './elFinderVolumeDriver.class.php';
 require './elFinderVolumeLocalFileSystem.class.php';
 
 $upload_base = '/var/www/html/storage/upload';
-$upload_url_base = '/storage/upload';
 $current_mb_id = $member['mb_id'];
 $current_level = (int)$member['mb_level'];
 $is_super = ($is_admin == 'super');
@@ -88,7 +91,6 @@ $roots = array();
 $roots[] = array(
     'driver'        => 'LocalFileSystem',
     'path'          => $my_path,
-    'URL'           => $upload_url_base . '/' . $current_mb_id . '/',
     'alias'         => ($member['mb_name'] ? $member['mb_name'] . '님의 파일' : $current_mb_id),
     'uploadMaxSize' => '500M',
     'tmbPath'       => $my_path . '/.tmb',
@@ -108,7 +110,6 @@ foreach ($subordinate_members as $sub) {
     $root_config = array(
         'driver'        => 'LocalFileSystem',
         'path'          => $sub_path,
-        'URL'           => $upload_url_base . '/' . $sub['mb_id'] . '/',
         'alias'         => $alias,
         'uploadMaxSize' => '500M',
         'tmbPath'       => $sub_path . '/.tmb',
@@ -138,8 +139,20 @@ function access($attr, $path, $data, $volume) {
 
 $opts = array(
     'roots' => $roots,
-    'debug' => false
+    'debug' => false,
 );
+
+if (function_exists('pro_elfinder_file_log_bind')) {
+    $opts['bind'] = array(
+        'upload' => array('pro_elfinder_file_log_bind'),
+        'rm'     => array('pro_elfinder_file_log_bind'),
+        'file'   => array('pro_elfinder_file_log_bind'),
+    );
+}
+
+if (function_exists('session_write_close') && session_status() === PHP_SESSION_ACTIVE) {
+    session_write_close();
+}
 
 $connector = new elFinderConnector(new elFinder($opts));
 $connector->run();

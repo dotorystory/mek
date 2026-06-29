@@ -129,4 +129,7 @@ function flogin_submit(f)
 }
 </script>
 <!-- } 로그인 끝 -->
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5471485491705212"
+    crossorigin="anonymous"></script>
 

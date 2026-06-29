@@ -247,3 +247,6 @@ $(document).ready(function() {
 });
 
 </script> -->
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5471485491705212"
+    crossorigin="anonymous"></script>

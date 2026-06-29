@@ -791,12 +791,16 @@ if (G5_IS_MOBILE) {
 //==============================================================================
 
 
-// 방문자수의 접속을 남김
-include_once(G5_BBS_PATH.'/visit_insert.inc.php');
+// 방문자수의 접속을 남김 (elFinder 커넥터 등 API 요청 제외)
+if (!defined('G5_IS_ELINDER_CONNECTOR')) {
+    include_once(G5_BBS_PATH.'/visit_insert.inc.php');
+}
 
 
 // 일정 기간이 지난 DB 데이터 삭제 및 최적화
-include_once(G5_BBS_PATH.'/db_table.optimize.php');
+if (!defined('G5_IS_ELINDER_CONNECTOR')) {
+    include_once(G5_BBS_PATH.'/db_table.optimize.php');
+}
 
 // common.php 파일을 수정할 필요가 없도록 확장합니다.
 $extend_file = array();

@@ -108,10 +108,13 @@ function update_file_stats($mb_id, $type, $filesize = 0) {
         $stats = sql_fetch("SELECT * FROM g5_file_stats WHERE fs_mb_id = '{$mb_id}'");
     }
     
-    // 통계 업데이트
+    $filesize = (int) $filesize;
+
     if ($type == 'UPLOAD') {
         $sql = "UPDATE g5_file_stats SET 
                 fs_upload_count = fs_upload_count + 1,
+                fs_total_files = fs_total_files + 1,
+                fs_total_size = fs_total_size + {$filesize},
                 fs_last_upload = NOW(),
                 fs_update_datetime = NOW()
                 WHERE fs_mb_id = '{$mb_id}'";
@@ -123,6 +126,8 @@ function update_file_stats($mb_id, $type, $filesize = 0) {
                 WHERE fs_mb_id = '{$mb_id}'";
     } elseif ($type == 'DELETE') {
         $sql = "UPDATE g5_file_stats SET 
+                fs_total_files = GREATEST(0, CAST(fs_total_files AS SIGNED) - 1),
+                fs_total_size = GREATEST(0, CAST(fs_total_size AS SIGNED) - {$filesize}),
                 fs_update_datetime = NOW()
                 WHERE fs_mb_id = '{$mb_id}'";
     }
@@ -130,9 +135,6 @@ function update_file_stats($mb_id, $type, $filesize = 0) {
     if (isset($sql)) {
         sql_query($sql);
     }
-    
-    // 실제 파일 개수 및 용량 재계산 (비동기로 처리 가능)
-    // recalculate_file_stats($mb_id);
 }
 
 /**
@@ -142,10 +144,28 @@ function update_file_stats($mb_id, $type, $filesize = 0) {
  */
 function recalculate_file_stats($mb_id) {
     global $g5;
-    
-    $upload_path = "/var/www/html/mekeng.com/upload/{$mb_id}";
-    
-    if (!is_dir($upload_path)) {
+
+    if (strpos((string) $mb_id, '..') !== false) {
+        return;
+    }
+
+    $candidates = array(
+        '/var/www/html/storage/upload/' . $mb_id,
+        '/var/www/html/mekeng.com/upload/' . $mb_id,
+    );
+    if (defined('G5_PATH')) {
+        $candidates[] = rtrim(G5_PATH, '/') . '/../upload/' . $mb_id;
+    }
+
+    $upload_path = '';
+    foreach ($candidates as $p) {
+        if (is_dir($p)) {
+            $upload_path = $p;
+            break;
+        }
+    }
+
+    if ($upload_path === '') {
         return;
     }
     
@@ -168,14 +188,86 @@ function recalculate_file_stats($mb_id) {
         return;
     }
     
-    $mb_id = sql_escape_string($mb_id);
+    $mb_id_esc = sql_escape_string($mb_id);
+
+    $exists = sql_fetch("SELECT fs_mb_id FROM g5_file_stats WHERE fs_mb_id = '{$mb_id_esc}' LIMIT 1");
+    if (!$exists) {
+        sql_query("INSERT INTO g5_file_stats
+            (fs_mb_id, fs_total_files, fs_total_size, fs_upload_count, fs_download_count,
+             fs_last_upload, fs_last_download, fs_update_datetime)
+            VALUES
+            ('{$mb_id_esc}', 0, 0, 0, 0, NULL, NULL, NOW())");
+    }
+
     $sql = "UPDATE g5_file_stats SET 
             fs_total_files = {$file_count},
             fs_total_size = {$total_size},
             fs_update_datetime = NOW()
-            WHERE fs_mb_id = '{$mb_id}'";
-    
+            WHERE fs_mb_id = '{$mb_id_esc}'";
+
     sql_query($sql);
+}
+
+/**
+ * elFinder 커맨드 완료 후 g5_file_log / g5_file_stats 반영 (connector opts bind)
+ */
+function pro_elfinder_file_log_bind($cmd, &$result, $args, $elfinder, $dstVolume = null) {
+    global $member;
+
+    if (!function_exists('log_file_access') || empty($member['mb_id'])) {
+        return false;
+    }
+    if (!empty($result['error'])) {
+        return false;
+    }
+
+    $mb_id = $member['mb_id'];
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+
+    if ($cmd === 'upload' && !empty($result['added']) && is_array($result['added'])) {
+        foreach ($result['added'] as $file) {
+            if (!is_array($file) || (!empty($file['mime']) && $file['mime'] === 'directory')) {
+                continue;
+            }
+            $name = isset($file['name']) ? $file['name'] : 'unknown';
+            $size = isset($file['size']) ? (int) $file['size'] : 0;
+            $path = isset($file['path']) ? $file['path'] : '';
+            log_file_upload($mb_id, $name, $path, $size, $ip);
+        }
+        return false;
+    }
+
+    if ($cmd === 'rm' && !empty($result['removed']) && is_array($result['removed'])) {
+        foreach ($result['removed'] as $file) {
+            if (!is_array($file)) {
+                continue;
+            }
+            if (!empty($file['mime']) && $file['mime'] === 'directory') {
+                continue;
+            }
+            $name = isset($file['name']) ? $file['name'] : 'unknown';
+            $size = isset($file['size']) ? (int) $file['size'] : 0;
+            $path = isset($file['path']) ? $file['path'] : '';
+            log_file_delete($mb_id, $name, $path, $size, $ip);
+        }
+        return false;
+    }
+
+    if ($cmd === 'file' && !empty($args['download']) && !empty($args['target']) && is_object($elfinder)) {
+        $volume = $elfinder->getVolume($args['target']);
+        if ($volume) {
+            $file = $volume->file($args['target']);
+            if (is_array($file) && (empty($file['mime']) || $file['mime'] !== 'directory')) {
+                $name = isset($file['name']) ? $file['name'] : 'unknown';
+                $size = isset($file['size']) ? (int) $file['size'] : 0;
+                $path = isset($file['path']) ? $file['path'] : '';
+                log_file_download($mb_id, $name, $path, $size, $ip);
+            }
+        }
+        return false;
+    }
+
+    return false;
 }
 
 /**
@@ -202,10 +294,6 @@ function get_file_stats($mb_id) {
         sql_query($sql);
     }
     
-    // 실제 파일 개수 및 용량 재계산
-    recalculate_file_stats($mb_id);
-    
-    // 다시 조회
     $stats = sql_fetch("SELECT * FROM g5_file_stats WHERE fs_mb_id = '{$mb_id}'");
     
     if (!$stats) {
