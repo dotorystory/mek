@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+/* 새글 스킨 (latest) */
+.patent .pic_lt {position:relative;margin-bottom:20px;background:transparent}
+.patent .pic_lt .lat_title {display:block;line-height:45px;font-size:1.2em;color:#253dbe}
+.patent .pic_lt .lat_title a {color:#000;display:inline-block;position:relative}
+
+.patent .pic_lt .lt_more {position:absolute;top:11px;right:10px;display:block;width:25px;line-height:25px;color:#aaa;border-radius:3px;text-align:center;}
+.patent .pic_lt .lt_more:hover {color:#777}
+.patent .pic_lt ul:after {display:none;visibility:hidden;clear:both;content:""}
+.patent .pic_lt .cert_lat_ul {/*margin: 0 -10px;*/ display: flex; gap:15px;}
+.patent .pic_lt li {/*float:left; width:15.29%;padding:3px 0; text-align: center; margin:5px 0.5%; height:auto!important; font-size:1.3em; font-weight: 600;*/ overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.patent .pic_lt li.gallery_li:nth-child(6n+1) {clear: both!important}
+.patent .pic_lt li .lt_img {display:block}
+.patent .pic_lt li img {margin-bottom: 10px;}
+.patent .pic_lt li img, .pic_lt li .lt_img video {width:100%;height:auto}
+.patent .pic_lt li a:hover {color:#a22121}
+.patent .pic_lt li .fa-heart {color:#ff0000}
+.patent .pic_lt li .fa-lock {display:inline-block;line-height:14px;width:16px;color:#4f818c;background:#cbe3e8;text-align:center;border-radius:2px;font-size:12px;border:1px solid #cbe3e8;vertical-align:middle}
+.patent .pic_lt li .new_icon {display:inline-block;width:16px;line-height:16px;font-size:0.833em;color:#23db79;background:#b9ffda;text-align:center;border-radius:2px;margin-left:2px;font-weight:bold;vertical-align:middle}
+.patent .pic_lt li .hot_icon {display:inline-block;width:16px;line-height:16px;font-size:0.833em;color:#ff0000;background:#ffb9b9;text-align:center;border-radius:2px;vertical-align:middle}
+.patent .pic_lt li .fa-caret-right {color:#bbb}
+.patent .pic_lt li .fa-download {display:inline-block;width:16px;line-height:16px;font-size:0.833em;color:#daae37;background:#ffefb9;text-align:center;border-radius:2px;vertical-align:middle}
+.patent .pic_lt li .fa-link {display:inline-block;width:16px;line-height:16px;font-size:0.833em;color:#b451fd;background:#edd3fd;text-align:center;border-radius:2px;vertical-align:middle}
+
+.patent .pic_lt .profile_img img{border-radius:50%}
+
+.patent .lt_info {padding:10px 0}
+.patent .lt_info .lt_nick {}
+.patent .lt_info .lt_date {color:#888}
+
+.patent .pic_lt .empty_li {line-height:145px ;color:#666;text-align:center;padding:0}
+.patent .pic_lt .empty_li:before {background:none;padding:0}
+
+.patent .pic_lt .lt_cmt {background:#e9eff5;color:#3a8afd;font-size:11px;height:16px;line-height:16px;padding:0 5px;border-radius:3px;vertical-align:middle}
+.patent .pic_lt .lt_more {position:absolute;top:11px;right:0;display:block;width:40px;line-height:25px;color:#3a8afd;border-radius:3px;text-align:center}
+.patent .pic_lt .lt_more:hover {color:#777}
+
+/*mobile*/
+@media (max-width:768px){
+  .patent .pic_lt li {float:left;width:32.29%;padding:3px 0; text-align: center; margin:5px 0.5%; height:auto!important; font-size:1.3em; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+  .patent .pic_lt li.gallery_li:nth-child(6n+1) {clear: none!important}
+  .patent .pic_lt li.gallery_li:nth-child(3n+1) {clear: both!important}
+}
+@media (max-width:450px){
+  .patent .pic_lt li {float:left;width:48.29%;padding:3px 0; text-align: center; margin:5px 0.5%; height:auto!important; font-size:1.3em; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+  .patent .pic_lt li.gallery_li:nth-child(3n+1) {clear: none!important}
+  .patent .pic_lt li.gallery_li:nth-child(2n+1) {clear: both!important}
+}

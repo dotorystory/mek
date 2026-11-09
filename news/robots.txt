@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+# automation posting admin (no crawl)
+Disallow: /plus/blog_automation/
+Disallow: /plus/video_automation/
+Disallow: /news/plus/blog_automation/
+Disallow: /news/plus/video_automation/
+# current connect / admin crawl block
+Disallow: /bbs/current_connect.php
+Disallow: /news/bbs/current_connect.php
+Disallow: /public/connect/
+Disallow: /en/bbs/current_connect.php
+Disallow: /jp/bbs/current_connect.php
+Disallow: /cn/bbs/current_connect.php
+Disallow: /de/bbs/current_connect.php
+Disallow: /es/bbs/current_connect.php
+Disallow: /home/bbs/current_connect.php
+# member memo (no crawl — spam/scan target)
+Disallow: /bbs/memo.php
+Disallow: /bbs/memo_form.php
+Disallow: /bbs/memo_form_update.php
+Disallow: /bbs/memo_view.php
+Disallow: /bbs/memo_delete.php
+Disallow: /news/bbs/memo.php
+Disallow: /news/bbs/memo_form.php
+Disallow: /news/bbs/memo_form_update.php
+Disallow: /news/bbs/memo_view.php
+Disallow: /news/bbs/memo_delete.php
+Disallow: /en/bbs/memo_form.php
+Disallow: /jp/bbs/memo_form.php
+Disallow: /cn/bbs/memo_form.php
+Disallow: /de/bbs/memo_form.php
+Disallow: /es/bbs/memo_form.php
+Disallow: /home/bbs/memo_form.php
+
+Sitemap: https://www.mekeng.com/news/Sitemap.xml

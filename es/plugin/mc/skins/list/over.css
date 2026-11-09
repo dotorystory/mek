@@ -1,0 +1,23 @@
+.mc-control-row-company .mc-control-radio {
+  width: 20%;
+  display: inline-block;
+  margin-right: 0; }
+.mc-control-row-size .mc-control-radio {
+  width: 20%;
+  display: inline-block;
+  margin-right: 0; }
+.mc-control-row-resolution .mc-control-radio {
+  width: 20%;
+  display: inline-block;
+  margin-right: 0; }
+.mc-control-row-terminal .mc-control-radio {
+  width: 20%;
+  display: inline-block;
+  margin-right: 0; }
+.mc-control-row .mc-more {
+  text-align: right;
+  padding-right: 10px;
+  color: red;
+  font-weight: bold; }
+  .mc-control-row .mc-more:after {
+    content: "+"; }

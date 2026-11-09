@@ -1,0 +1,89 @@
+@charset "utf-8";
+/* 새글 스킨 (latest) */
+
+/* 히스토리 커스텀 */
+.bd1 { position: relative; padding-top: 60px;}
+.bd1:before {content: ""; position: absolute; width: 10px; height: 10px; border-radius: 10px;background: #bebebe; color: #fff; border: none; display: inline-block;line-height: 10px;
+  text-align: center; left: calc(50% - 4px); top: 0;}
+.bd1:after {  content: "";  position: absolute;top: 0; left: 50%; bottom: 0; width: 1px; background: #bebebe; display: block;}
+.bd1 > ul { width: 50%; padding-bottom: 25px; position: relative; z-index: 1}
+.bd1 > ul a {cursor: default;}
+.bd1 > ul dd{position:relative;}
+.bd1 > ul dt { font-size: 35px; font-weight: 500; letter-spacing: -0.5px; position: relative;padding-bottom: 13px; color: #0061a1;}
+.bd1 > ul dt:before { content: ""; position: absolute; top: 25px; background: #ddd; height: 1px; width: 50px; display: block;}
+.bd1 > ul dl { display: inline-block; max-width: 500px; width:100%;}
+.bd1 > ul:before { content: ""; position: absolute; width: 23px; height: 23px; border-radius: 11px; background: #fff; color: #fff; border: 6px solid #0061a1; display: inline-block; line-height: 11px; text-align: center; z-index: 10; top: 14px;}
+.bd1 > ul:nth-child(odd) {margin-left: calc(50% - 2px);}
+.bd1 > ul:nth-child(odd):before {margin-left: -9px;}
+.bd1 > ul:nth-child(odd) dl {padding-left: 65px;}
+.bd1 > ul:nth-child(odd) dt:before { left: -66px;}
+.bd1 > ul:nth-child(even) { text-align: right;}
+.bd1 > ul:nth-child(even):before {right: -12px;}
+.bd1 > ul:nth-child(even) dl { padding-right: 65px; text-align: right;}
+
+.bd1 > ul:nth-child(even) dt:before { left: calc(100% + 15px); width: 50px;}
+.bd1 > ul:nth-child(even) dd {text-align: left;}
+.bd1 > ul .news_wrap {display: flex; line-height: 34px; gap:5px; align-items: center;}
+.bd1 > ul:nth-child(even) .news_wrap  {justify-content: right}
+.bd1 > ul .news_wrap .month { display: inline-block; font-size: 17px; color: #666; font-weight: 500; width:40px;}
+.bd1 > ul .news_wrap .desc {display: block; letter-spacing: -0.5px; font-size:15px; line-height: 1.5; word-break: break-word;}
+
+/* 기본 */
+.main_history .pic_lt{position:relative; /*margin-bottom:20px;overflow:hidden;border: 1px solid #c6cacc;background:#fff */}
+/* .pic_lt .lat_title {display:block;background:#fcfcfc;padding:0 20px;line-height:45px;font-size:1.083em;border-bottom:1px solid #e2e2e2;color:#253dbe;} */
+.main_history .pic_lt .lat_title a{color:#253dbe;display:inline-block;position:relative}
+.main_history .pic_lt .lat_title a:after{position:absolute;bottom:-1px;left:0;width:100%;height:2px;background:#253dbe;content:''}
+.main_history .pic_lt .lt_more {position:absolute;top:11px;right:10px;display:block;width:25px;line-height:25px;color:#aaa;border-radius:3px;text-align:center;}
+.main_history .pic_lt .lt_more:hover{color:#777}
+.main_history .pic_lt ul:after {display:block;visibility:hidden;clear:both;content:""}
+.main_history .pic_lt ul{padding:20px 15px }
+.main_history .pic_lt li{float:left;width:20%;padding:0 10px}
+.main_history .pic_lt li .lt_img{margin:5px 0;display:block}
+.main_history .pic_lt li .lt_img img{width:100%;height:auto}
+.main_history .pic_lt li a:hover{color:#a22121}
+.main_history .pic_lt li .fa-heart{color:#ff0000;}
+.main_history .pic_lt li .fa-lock{display: inline-block;line-height: 14px;width: 16px;font-size: 0.833em;color: #4f818c;background: #cbe3e8;text-align: center;border-radius: 2px;font-size: 12px;border:1px solid #a2c6ce}
+.main_history .pic_lt li .new_icon{display:inline-block;width: 16px;line-height:16px ;font-size:0.833em;color:#ffff00;background:#6db142;text-align:center;border-radius: 2px;}
+.main_history .pic_lt li .hot_icon{display:inline-block;width: 16px;line-height:16px ;font-size:0.833em;color:#fff;background:#e52955;text-align:center;border-radius: 2px;}
+.main_history .pic_lt li .fa-caret-right{color:#bbb}
+.main_history .pic_lt .lt_cmt{background:#5c85c1;color:#fff; font-size:11px;height:16px;line-height:16px;padding:0 5px;border-radius:3px;white-space: nowrap;
+-webkit-box-shadow: inset 0 2px 5px  rgba(255,255,255,0.4);
+-moz-box-shadow: inset 0 2px 5px  rgba(255,255,255,0.4);
+box-shadow: inset 0 2px 5px  rgba(255,255,255,0.4);}
+.main_history .pic_lt .lt_date{display:block;margin-top:5px;color: #888;}
+
+.news_wrap ul li {position:relative; display: block; font-size:15px; color: #636363; line-height: 1.5; word-break: keep-all; padding-left: 10px; }
+/* .news_wrap ul li::before { content: "·"; display: block; font-size:15px; color: #636363; position: absolute; top: 0; left: 0; } */
+
+.news_ul01 .desc {width: calc(100% - 50px);}
+.news_ul01 .desc li {position:relative; display: block; font-size:15px; color: #636363; line-height: 1.5; word-break: keep-all; padding-left: 10px; }
+.news_ul01 .desc li::before { content: "·"; display: block; font-size:15px; color: #636363; position: absolute; top: 0; left: 0; }
+
+@media (max-width:700px){
+  /* 히스토리 커스텀 */
+  .bd1 {padding-top: 60px;}
+  .bd1:before {width: 10px; height: 10px; border-radius: 10px; line-height: 10px; left: calc(0% + 10px); }
+  .bd1:after {top: 0; left: calc(0% + 14px); bottom: 0; width: 1px;}
+  .bd1 > ul { width: calc(100% - 14px); padding-bottom: 25px;}
+  .bd1 > ul dt { font-size: 32px; padding-bottom: 13px;}
+  .bd1 > ul dt:before {top: 25px; height: 1px; width: 50px;}
+  .bd1 > ul dl { max-width: 500px; width:100%;}
+  .bd1 > ul:before {width: 20px; height: 20px; border-radius: 11px; border: 6px solid #0061a1; line-height: 11px; top: 14px;}
+  .bd1 > ul:nth-child(odd) {margin-left: calc(0% + 14px);}
+  .bd1 > ul:nth-child(odd):before {margin-left: -9px;}
+  .bd1 > ul:nth-child(odd) dl {padding-left: 65px;}
+  .bd1 > ul:nth-child(odd) dt:before { left: -66px;}
+  .bd1 > ul:nth-child(even) {text-align: left; margin-left: calc(0% + 14px);}
+  .bd1 > ul:nth-child(even):before {right: 0; left: -9px}
+  .bd1 > ul:nth-child(even) dl { padding-right: 0; text-align: left; padding-left: 65px;}
+  .bd1 > ul:nth-child(even) dt:before {width: 50px; left: -66px;}
+  .bd1 > ul:nth-child(even) dd {text-align: left;}
+  .bd1 > ul .news_wrap {line-height: 34px; gap:5px; align-items: center;}
+  .bd1 > ul:nth-child(even) .news_wrap  {justify-content: left}
+  .bd1 > ul .news_wrap .month {font-size: 16px; width:40px;}
+  .bd1 > ul .news_wrap .desc {letter-spacing: -0.5px; font-size:15px; line-height: 1.2; }
+}
+
+@media (max-width:600px){
+
+}

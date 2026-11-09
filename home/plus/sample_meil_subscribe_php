@@ -1,0 +1,84 @@
+<?php
+if (!defined('_GNUBOARD_')) exit;
+
+function get_newsletter_template($subject, $content, $unsubscribe_key) {
+    global $config, $member;
+    $site_url = G5_URL;
+    $site_name = $config['cf_title'];
+    $current_date = date('Y.m.d');
+    
+    // 기본 인사말
+    $greeting = <<<EOT
+{$current_date} 『{$site_name}』
+EOT;
+
+    // 발신자 정보
+    $sender_info = <<<EOT
+<div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+    <p style="font-size: 12px; color: #777;">
+        발신자 정보:<br>
+        성명: {$member['mb_name']}<br>
+        연락처: {$member['mb_tel']}<br>
+        이메일: {$member['mb_email']}
+    </p>
+    <br>
+</div>
+EOT;
+
+    return <<<EOT
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            .newsletter-container { max-width: 600px; margin: 0 auto; font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif; }
+            .header { background: #f8f9fa; padding: 20px; text-align: center; }
+            .content { padding: 20px; line-height: 1.6; }
+            .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; }
+            .article { margin-bottom: 20px; padding: 15px; border: 1px solid #eee; }
+            .article-title { color: #333; text-decoration: none; font-weight: bold; }
+            .article-excerpt { color: #666; margin-top: 10px; }
+            .unsubscribe { color: #999; text-decoration: none; }
+            .greeting { margin-bottom: 30px; line-height: 1.8; }
+        </style>
+    </head>
+    <body>
+        <div class="newsletter-container">
+            <div class="header">
+                <h1>{$subject}</h1>
+            </div>
+            
+            <div class="content">
+                <div class="greeting">
+                    {$greeting}
+                </div>
+                {$content}
+                {$sender_info}
+            </div>
+            
+            <div class="footer">
+                <p><a href="{$site_url}/" style="font-size: 20px; font-weight: bold; text-decoration: none;">{$site_name} 바로가기</a></p>
+                <p>본 메일은 발신전용입니다. 문의사항이 있으신 경우 사이트를 방문해주세요.</p>
+                <br>
+                <p><a href="{$site_url}/bbs/unsubscribe.php?key={$unsubscribe_key}" class="unsubscribe">뉴스레터 구독 취소</a></p>
+            </div>
+        </div>
+    </body>
+    </html>
+EOT;
+}
+
+// 새글 정보를 HTML로 변환
+function get_article_html($article) {
+    $title = $article['wr_subject'];
+    if (isset($article['is_ad']) && $article['is_ad']) {
+        $title = '[광고] ' . $title;
+    }
+    
+    $html = '<div class="article">';
+    $html .= '<a href="'.$article['href'].'" class="article-title">'.$title.'</a>';
+    $html .= '<div class="article-excerpt">'.cut_str(strip_tags($article['wr_content']), 200).'</div>';
+    $html .= '</div>';
+    return $html;
+}
+?>

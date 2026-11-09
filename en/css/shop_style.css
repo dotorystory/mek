@@ -1,0 +1,46 @@
+@import url(https://use.fontawesome.com/releases/v5.15.2/css/all.css);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@charset "utf-8";
+
+/* Reset CSS  */
+html { height: 100%; overflow-y:scroll;}
+body { font-size: 13px; color:#000;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, blockquote, th, td, p { margin: 0px; padding:0px;  list-style:none;  font-family:"Noto Sans KR", sans-serif;}
+fieldset{ border: 0px; }
+a{font-style:normal; text-decoration:none; color:#000;}
+hr, legend {height: 0; left: -5000px; line-height: 0; overflow-x: hidden; overflow-y: hidden; position: absolute; visibility: hidden;width: 0;}
+caption {font-size: 0; height: 0; line-height: 0; visibility: hidden; width: 0;}
+* {-webkit-text-size-adjust:none;}
+* { margin:0; padding:0; border:0; outline:0;  }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display:block; }
+img, video { max-width:100%; border:0; height:auto; vertical-align:top; }
+table { border-collapse:collapse; border-spacing:0; border: 0px solid #E5E5E5; }
+input, select { vertical-align:middle; }
+label { cursor:pointer; }
+.blind,legend,hr,caption { display:block; overflow:hidden; position:absolute; top:0; left:-1000em; }
+i,em,address { font-style:normal; font-weight:normal; }
+td,th {vertical-align: middle;line-height: 1.6;}
+td strong {font-weight: 100;	font-size: 5px;vertical-align: bottom;}
+a:hover{text-decoration:none;}
+ul:after{content:""; display:block; clear:both;}
+
+.container { max-width: 1410px; width:100%; margin: 0 auto; position: relative; box-sizing: border-box; padding:0 15px;}
+.container:after {content: ""; display: block; clear: both;}
+
+/*formmail*/
+#select-form{border:1px solid #ddd; width:100%; padding:15px 10px; font-size:15px}
+.fields{position:relative; margin-top:30px; border-top:1px solid #ddd;}
+.fields li{display:flex;border-bottom:1px solid #ddd;  align-items:center; padding:15px;}
+.fields .lbl{width:200px;font-size:15px; cursor:text}
+.fields .desc{width:100%;}
+.fields .input{border:1px solid #ddd; padding:15px 10px; box-sizing:border-box; width:100%}
+.fields .input.full{width:100%}
+.fields .btn-group{margin-top:34px; text-align:center}
+.fields .btn-group span{font-size:16px; color:#999;}
+.fields .btn-group a{font-size:16px; color:#000; font-weight:bold;}
+.fields .btn-group a:hover{text-decoration:underline}
+input[id="agree-check"] + label {display: inline-block; width: 20px; height: 20px; border: 1px solid #bbb; cursor: pointer;margin: 0 4px 4px 0;}
+input[id="agree-check"]:checked + label {border-color:#0b4ea2; background:url('../img/agree_check.png') no-repeat center center;}
+input[id="agree-check"] {display: none;}
+.fields .btn-submit{background:#0b4ea2; color:#fff; font-size:16px; font-weight:bold; padding: 15px 47px; border:none; outline:none; margin-top:35px;}
