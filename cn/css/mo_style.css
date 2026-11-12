@@ -353,7 +353,7 @@
 /* 메인 공통사항 */
 .main main h3 {font-size: 40px;}
 
-.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 90%; background-position:72% 90%; }
+.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 58% auto; background-position:88% 88%; }
 
 
   /* 메인 8section 8섹션 */
@@ -633,7 +633,7 @@ input[id="agree-check"] + label {width: 20px; height: 20px;margin: 0 4px 4px 0;}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-next:after, .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-prev:after {content: ""; width: 16px; height: 16px; border-top: 2px solid #fff; border-right: 2px solid #fff; display: inline-block; font-size: 0; line-height: 0;}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-prev:after {transform: rotate(-135deg);}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-next:after {transform: rotate(45deg);}
-.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 94%;  background-position:center 90%}
+.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 84% auto; background-position:center 92%}
 .main main #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_po {bottom: 60%;}
 
 .main main #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_wrap {gap: 18px; }
@@ -802,7 +802,7 @@ to {
   .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-next:after, .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-prev:after {content: ""; width: 16px; height: 16px; border-top: 2px solid #fff; border-right: 2px solid #fff; display: inline-block; font-size: 0; line-height: 0;}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-prev:after {transform: rotate(-135deg);}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-next:after {transform: rotate(45deg);}
-.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 94%;  background-position:center 90%}
+.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 84% auto; background-position:center 92%}
 .main main #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_po {bottom: 60%;}
 
 .main main #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_wrap {gap: 18px; }
@@ -879,7 +879,7 @@ to {
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-next:after, .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-prev:after {content: ""; width: 3.5vw; height: 3.5vw; border-top: 2px solid #fff; border-right: 2px solid #fff; display: inline-block; font-size: 0; line-height: 0;}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-prev:after {transform: rotate(-135deg);}
 .main main #main_01 .swiper-container .arrow .arrow-wrap .swiper-button-next:after {transform: rotate(45deg);}
-.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 94%;  background-position:center 90%}
+.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {background-size: 84% auto; background-position:center 92%}
 .main main #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_po {bottom: 60%;}
 .main main  #main_01 .swiper-container .swiper-pagination2 .swiper-pagination-bullet{width: 8%; height: 0.9vw;}
 

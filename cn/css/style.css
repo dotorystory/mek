@@ -277,11 +277,11 @@ main #main_01 {overflow: hidden}
 .main main  #main_01 .swiper-container {height:100%; position: relative;}
 .main main  #main_01 .swiper-container .swiper-wrapper {width:100%; height:100%; padding-top: 30px;}
 .main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {width:100%; height:100%;}
-.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {height:100%; background-position: 82% 90%; background-repeat: no-repeat;}
-.main main  #main_01 .swiper-container .swiper-wrapper .sl01 {background-image: url(../img/vi_img01.png);}
-.main main  #main_01 .swiper-container .swiper-wrapper .sl02 {background-image: url(../img/main_pro_img02.png);}
-.main main  #main_01 .swiper-container .swiper-wrapper .sl03 {background-image: url(../img/main_pro_img03.png);}
-.main main  #main_01 .swiper-container .swiper-wrapper .sl04 {background-image: url(../img/main_pro_img04.png);}
+.main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide {height:100%; background-position: 88% 88%; background-repeat: no-repeat; background-size: 55% auto !important;}
+.main main  #main_01 .swiper-container .swiper-wrapper .sl01 {background-image: url(../img/banner_01_machine.webp?v=25111223); background-size: 48% auto !important;} /* machine */
+.main main  #main_01 .swiper-container .swiper-wrapper .sl02 {background-image: url(../img/banner_02_process.webp?v=25111223); background-size: 60% auto !important;} /* process */
+.main main  #main_01 .swiper-container .swiper-wrapper .sl03 {background-image: url(../img/banner_03_building.webp?v=25111223); background-size: 55% auto !important;} /* building */
+.main main  #main_01 .swiper-container .swiper-wrapper .sl04 {background-image: url(../img/banner_04_map.webp?v=25111223); background-size: 62% auto !important;} /* world map */
 .main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_po {position: absolute; bottom: 50%; transform: translateY(50%); padding: 0 2%; width: 100%;}
 .main main  #main_01 .swiper-container .swiper-wrapper .swiper-slide .vi_txt_wrap {color: #fff; display: flex; flex-direction: column; gap: 20px;  box-sizing: border-box; width: fit-content; white-space: nowrap;}
 

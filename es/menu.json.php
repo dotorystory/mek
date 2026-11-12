@@ -1,11 +1,11 @@
 <?php
   $mainMenu = json_decode('
-    [
-      {"title": "ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
-      {"title": "APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
-      {"title": "PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_en"},
-      {"title": "CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"},
-      {"title": "CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
+        [
+      {"title": "Sobre nosotros", "p_title":"ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
+      {"title": "Aplicaciones", "p_title":"APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
+      {"title": "Productos", "p_title":"PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_en"},
+      {"title": "Catálogo", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"},
+      {"title": "Contacto", "p_title":"CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
     ]
   ');
   $subMenu = json_decode('
@@ -33,7 +33,7 @@
         {"title": "Producto de Socio", "p_title":"PRODUCTS", "href": "'.G5_URL.'/sub03_04.php"}
       ],
       [
-        {"title": "CATALOG", "p_title":"Catálogo", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"}
+        {"title": "Catálogo", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"}
       ],
       [
         {"title": "Consulta de Medidor de Espesor", "p_title":"CONTACT", "text": "Por favor, contáctenos para cualquier consulta sobre productos o tecnología, y le responderemos lo antes posible.", "href": "'.G5_URL.'/sub04_02.php"},

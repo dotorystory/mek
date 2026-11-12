@@ -1,11 +1,11 @@
  <?php
  $mainMenu = json_decode('
-   [
-     {"title": "ABOUT US", "p_title":"会社紹介", "href": "'.G5_URL.'/sub01_01.php"},
-     {"title": "APPLICATIONS", "p_title":"事業/産業", "href": "'.G5_URL.'/sub02_01.php"},
-     {"title": "PRODUCTS", "p_title":"製品紹介", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_jp"},
-     {"title": "CATALOG", "p_title":"カタログ", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_jp"},
-     {"title": "CONTACT", "p_title":"お問い合わせ", "href": "'.G5_URL.'/sub04_02.php"}
+      [
+     {"title": "会社紹介", "p_title":"ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
+     {"title": "適用分野", "p_title":"APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
+     {"title": "製品情報", "p_title":"PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_jp"},
+     {"title": "カタログ", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_jp"},
+     {"title": "お問い合わせ", "p_title":"CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
    ]
  ');
 
@@ -34,7 +34,7 @@
        {"title": "パートナー製品", "p_title":"Partner Product",  "href": "'.G5_URL.'/sub03_04.php"}
      ],
      [
-       {"title": "CATALOG", "p_title":"カタログ", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_jp"}
+       {"title": "カタログ", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_jp"}
      ],
      [
        {"title": "厚み計のお問い合わせ", "p_title":"Thickness Gauge Inquiry", "text":"製品/技術に関するお問い合わせなど、何か質問があればお気軽にお問い合わせください。 ","href": "'.G5_URL.'/sub04_02.php"},

@@ -1,11 +1,11 @@
  <?php
   $mainMenu = json_decode('
-    [
-      {"title": "ABOUT US", "p_title":"회사소개", "href": "'.G5_URL.'/sub01_01.php"},
-      {"title": "APPLICATIONS", "p_title":"사업/산업", "href": "'.G5_URL.'/sub02_01.php"},
-      {"title": "PRODUCTS", "p_title":"제품소개", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_ko"},
-      {"title": "CATALOG", "p_title":"카달로그", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_ko"},
-      {"title": "CONTACT", "p_title":"문의하기", "href": "'.G5_URL.'/sub04_02.php"}
+        [
+      {"title": "회사소개", "p_title":"ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
+      {"title": "적용분야", "p_title":"APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
+      {"title": "제품정보", "p_title":"PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_ko"},
+      {"title": "카탈로그", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_ko"},
+      {"title": "문의하기", "p_title":"CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
     ]
   ');
   $subMenu = json_decode('
@@ -33,7 +33,7 @@
         {"title": "파트너사 제품", "p_title":"Partner Product",  "href": "'.G5_URL.'/sub03_04.php"}
       ],
       [
-        {"title": "CATALOG", "p_title":"카달로그", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_ko"}
+        {"title": "카탈로그", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_ko"}
       ],
       [
         {"title": "두께 측정기 문의", "p_title":"Thickness Gauge Inquiry", "text":"제품 / 기술 문의 등 무엇이든 문의 주시면 빠른 시일 내에 연락 드리겠습니다. ","href": "'.G5_URL.'/sub04_02.php"},

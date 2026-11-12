@@ -1,11 +1,11 @@
  <?php
   $mainMenu = json_decode('
-    [
-      {"title": "ABOUT US", "p_title":"公司介绍", "href": "'.G5_URL.'/sub01_01.php"},
-      {"title": "APPLICATIONS", "p_title":"业务/产业", "href": "'.G5_URL.'/sub02_01.php"},
-      {"title": "PRODUCTS", "p_title":"产品介绍", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_cn"},
-      {"title": "CATALOG", "p_title":"产品目录", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_ko"},
-      {"title": "CONTACT", "p_title":"联系我们", "href": "'.G5_URL.'/sub04_02.php"}
+        [
+      {"title": "公司介绍", "p_title":"ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
+      {"title": "应用领域", "p_title":"APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
+      {"title": "产品信息", "p_title":"PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_cn"},
+      {"title": "产品目录", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_ko"},
+      {"title": "联系我们", "p_title":"CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
     ]
   ');
   $subMenu = json_decode('

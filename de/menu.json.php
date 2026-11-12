@@ -1,11 +1,11 @@
 <?php
   $mainMenu = json_decode('
-    [
-      {"title": "ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
-      {"title": "APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
-      {"title": "PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_en"},
-      {"title": "CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"},
-      {"title": "CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
+        [
+      {"title": "Über uns", "p_title":"ABOUT US", "href": "'.G5_URL.'/sub01_01.php"},
+      {"title": "Anwendungen", "p_title":"APPLICATIONS", "href": "'.G5_URL.'/sub02_01.php"},
+      {"title": "Produkte", "p_title":"PRODUCTS", "href": "'.G5_BBS_URL.'/board.php?bo_table=pro_en"},
+      {"title": "Katalog", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"},
+      {"title": "Kontakt", "p_title":"CONTACT", "href": "'.G5_URL.'/sub04_02.php"}
     ]
   ');
   $subMenu = json_decode('
@@ -33,7 +33,7 @@
         {"title": "Partnerprodukte", "p_title":"PRODUCTS", "href": "'.G5_URL.'/sub03_04.php"}
       ],
       [
-        {"title": "KATALOG", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"}
+        {"title": "Katalog", "p_title":"CATALOG", "href": "'.G5_BBS_URL.'/board.php?bo_table=catalog_en"}
       ],
       [
         {"title": "Dickenmessgerät Anfrage", "p_title":"CONTACT", "text": "Bitte kontaktieren Sie uns bei Fragen zu Produkten oder Technologie, wir werden uns so schnell wie möglich bei Ihnen melden.", "href": "'.G5_URL.'/sub04_02.php"},
