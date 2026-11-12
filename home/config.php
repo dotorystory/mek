@@ -186,7 +186,7 @@ define('G5_SMTP',        '127.0.0.1');
 define('G5_SMTP_PORT',   '587');          // submission 포트 (25 연결 실패 시 사용)
 define('G5_SMTP_SECURE', 'tls');          // 587은 STARTTLS
 define('G5_MAIL_FROM',      'msk@mekeng.com');
-define('G5_MAIL_FROM_NAME', 'MEK Inc. & MEK Eng.');
+define('G5_MAIL_FROM_NAME', 'MEK Engineering Corp. & MEK Inc.');
 
 
 /********************

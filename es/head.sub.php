@@ -177,8 +177,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/aos.css">', 0);
 add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/slick.css">', 0);
 add_stylesheet('<link rel="stylesheet" href="'.G5_JS_URL.'/font-awesome/css/font-awesome.min.css">', 0);
 add_stylesheet('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">', 0);
-add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/style.css">', 0);
-add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/mo_style.css">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/style.css?ver='.G5_CSS_VER.'">', 0);
+add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/mo_style.css?ver='.G5_CSS_VER.'">', 0);
 if(G5_IS_MOBILE) {
     add_javascript('<script src="'.G5_JS_URL.'/modernizr.custom.70111.js"></script>', 1); // overflow scroll 감지
 }

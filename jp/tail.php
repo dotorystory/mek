@@ -28,12 +28,13 @@ if (G5_IS_MOBILE) {
               <li><?php echo $default['de_admin_company_name']; ?></li>
               <li>最高経営責任者 : <?php echo $default['de_admin_company_owner']; ?></li>
               <li>住所 : <?php echo $default['de_admin_company_addr']; ?></li>
-              <li>電話番号 :  <a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><?php echo $default['de_admin_company_tel']; ?></a> / <a href="tel:010-3698-1111">010-3698-1111<span class="spc"> | </span><br class="mobr">ファックス : <?php echo $default['de_admin_company_fax']; ?></li>
-              <li><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;">メール : <?php echo $default['de_admin_info_email']; ?></a></li>
+              <li>SALES &amp; NEW INQUIRIES Tel : <a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><?php echo $default['de_admin_company_tel']; ?></a><span class="spc"> | </span>FAX : <?php echo $default['de_admin_company_fax']; ?></li>
+              <li>SERVICE &amp; TECH SUPPORT (A/S) Mobile : <a href="tel:010-8214-1301">010-8214-1301</a></li>
+              <li>Website : <a href="https://www.mekeng.com" target="_blank" rel="noopener">mekeng.com</a><span class="spc"> | </span><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;">E-mail : <?php echo $default['de_admin_info_email']; ?></a></li>
             </ul>
           </address>
           <small>
-            MEKエンジニアリングコーポレーション & 株式会社MEK。全著作権所有。 
+            Copyrightⓒ MEK Engineering Corp. & MEK Inc. <br class="br_mo">All rights reserved. 
             <!-- <span class="spc"> | </span> <br class="br_mo"><a href="https://designtalktalk.com/home/" target="_blank">Design by DesignTalkTalk</a> -->
           </small>
       </div>

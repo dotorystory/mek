@@ -156,7 +156,7 @@ else
       </nav>
     </div>
     <div class="sitemap-right">
-      <p class="site_close"><i class="ri-close-line"></i></p>
+      <p class="site_close"><span class="material-symbols-outlined" aria-hidden="true">close</span></p>
       <p class="site_map_txt"><span>SITE MAP</span></p>
     </div>
   </div>

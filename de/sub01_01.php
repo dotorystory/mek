@@ -28,7 +28,7 @@ include_once(G5_PATH.'/head.php');
         Vielen Dank.
         <br><br>
         <div class="ceo">
-          <p class="txt_right"><span class="sub_corp">MEK Inc. & MEK Engineering Corp.</span>
+          <p class="txt_right"><span class="sub_corp">MEK Engineering Corp. & MEK Inc.</span>
           <br>
           <span class="sub_ceo">CEO Sang Ho Moon</span></p>
           <p class="ceo_sign"><img src="<?php echo G5_IMG_URL; ?>/ceo_sign.png" alt="CEO sign"></p>
@@ -43,13 +43,14 @@ include_once(G5_PATH.'/head.php');
       <h5>Unternehmensübersicht</h5>
     </div>
     <ul>
-      <li><p><span class="overview_tit">Firmenname</span><span class="overview_txt">MEK Inc. & MEK Engineering Corp.</span></p>
+      <li><p><span class="overview_tit">Firmenname</span><span class="overview_txt">MEK Engineering Corp. & MEK Inc.</span></p>
         <p><i class="ri-building-line"></i></p></li>
       <li><p><span class="overview_tit">CEO</span><span class="overview_txt">Sang Ho Moon</span></p><p><i class="ri-user-2-line"></i></p></li>
       <li><p><span class="overview_tit">Standort</span><span class="overview_txt">30, Bupyeong-daero 313beon-gil, Bupyeong-gu, Incheon, Republik Korea</span></p><p><i class="ri-map-pin-line"></i></p></li>
       <li><p><span class="overview_tit">Gegründet</span><span class="overview_txt">August 1993</span></p><p><i class="ri-calendar-2-line"></i></p></li>
       <li><p><span class="overview_tit">Hauptgeschäft</span><span class="overview_txt">WEB-Qualitätsmanagementsystem</span></p><p><i class="ri-briefcase-5-line"></i></p></li>
-      <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">Telefon</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
+      <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">SALES Tel</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
+      <li><a href="tel:010-8214-1301"><p><span class="overview_tit">A/S Mobile</span><span class="overview_txt">010-8214-1301</span></p><p><i class="ri-smartphone-line"></i></p></a></li>
       <li><p><span class="overview_tit">Fax</span><span class="overview_txt"> <?php echo $default['de_admin_company_fax']; ?></span></p><p><i class="ri-file-paper-line"></i></p></li>
       <li><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;"><p><span class="overview_tit">E-Mail</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
     </ul>

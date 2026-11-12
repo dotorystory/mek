@@ -49,7 +49,8 @@ include_once(G5_PATH.'/head.php');
       <li><p><span class="overview_tit">ADDRESS</span><span class="overview_txt">(21315)仁川广域市富平区富平大路313街30</span></p><p><i class="ri-map-pin-line"></i></p></li>
       <li><p><span class="overview_tit">成立日期</span><span class="overview_txt">1993年8月</span></p><p><i class="ri-calendar-2-line"></i></p></li>
       <li><p><span class="overview_tit">主要业务</span><span class="overview_txt">网络质量管理系统</span></p><p><i class="ri-briefcase-5-line"></i></p></li>
-      <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">电话</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
+      <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">SALES Tel</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
+      <li><a href="tel:010-8214-1301"><p><span class="overview_tit">A/S Mobile</span><span class="overview_txt">010-8214-1301</span></p><p><i class="ri-smartphone-line"></i></p></a></li>
       <li><p><span class="overview_tit">传真</span><span class="overview_txt"> <?php echo $default['de_admin_company_fax']; ?></span></p><p><i class="ri-file-paper-line"></i></p></li>
       <li><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;"><p><span class="overview_tit">电子邮件</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
     </ul>

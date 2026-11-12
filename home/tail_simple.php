@@ -33,8 +33,9 @@ if (!preg_match('#/plus/#', $_SERVER['SCRIPT_NAME'])) {
               <li><?php echo $default['de_admin_company_name'];?></li>
               <li>대표 : <?php echo $default['de_admin_company_owner'];?></li>
               <li>주소 : <?php echo $default['de_admin_company_addr']; ?></li>
-              <li>TEL :  <a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><?php echo $default['de_admin_company_tel']; ?> </a> / <a href="tel:010-3698-1111">010-3698-1111 </a><span class="spc"> | </span><br class="mobr">FAX : <?php echo $default['de_admin_company_fax']; ?></li>
-              <li><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;">E-mail : <?php echo $default['de_admin_info_email']; ?></a></li>
+              <li>SALES &amp; NEW INQUIRIES Tel : <a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><?php echo $default['de_admin_company_tel']; ?></a><span class="spc"> | </span>FAX : <?php echo $default['de_admin_company_fax']; ?></li>
+              <li>SERVICE &amp; TECH SUPPORT (A/S) Mobile : <a href="tel:010-8214-1301">010-8214-1301</a></li>
+              <li>Website : <a href="https://www.mekeng.com" target="_blank" rel="noopener">mekeng.com</a><span class="spc"> | </span><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;">E-mail : <?php echo $default['de_admin_info_email']; ?></a></li>
             </ul>
           </address> -->
           <small>

@@ -421,7 +421,7 @@ function get_newyear_card_template($subject, $content, $unsubscribe_key = '', $e
                                 </tr>
                                 <tr>
                                     <td style="color: #ffffff; font-size: 16px; padding-top: 15px;">
-                                        MEK Inc. & MEK Engineering
+                                        MEK Engineering Corp. & MEK Inc.
                                     </td>
                                 </tr>
                             </table>

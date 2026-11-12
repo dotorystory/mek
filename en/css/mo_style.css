@@ -1154,3 +1154,10 @@ input[id="agree-check"] + label {width: 20px; height: 20px;margin: 0 4px 4px 0;}
 #map-gnb {overflow: scroll;}
 #sub_wrap.sub03_04 .section04 .list_table_wrap .list_table tbody tr .align_left {padding: 10px 0 10px 10px;}
 }
+
+#sitemap .sitemap .sitemap-right .site_close .material-symbols-outlined {
+  color: #fff !important;
+  font-size: 42px !important;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  line-height: 1;
+}

@@ -866,3 +866,27 @@ to {
 #header .header_wrap .head_nav .global .country li a.active {color: #a39277; cursor: default;}
 #sitemap .sitemap .sitemap-middle .global_nav .head_gnb .global .country li a.active {color: #a39277; cursor: default;}
 #footer .footer .footer_wrap .footer_link .footer_link_list .ft_global ul li a.active {color: #a39277; cursor: default;}
+
+/* sitemap logo size (new logo asset is larger; prevent container stretch) */
+#sitemap .sitemap .sitemap_left h1.logo_b a img,
+#sitemap .sitemap .sitemap_left h1 a img,
+#sitemap .sitemap .sitemap_left h1.logo_b.container a img {
+  height: 50px !important;
+  width: auto !important;
+  max-width: 180px !important;
+  max-height: 50px !important;
+  object-fit: contain !important;
+}
+/* sitemap close X must stay white on dark bar */
+#sitemap .sitemap .sitemap-right .site_close,
+#sitemap .sitemap .sitemap-right .site_close i,
+#sitemap .sitemap .sitemap-right .site_close i::before {
+  color: #fff !important;
+}
+
+#sitemap .sitemap .sitemap-right .site_close .material-symbols-outlined {
+  color: #fff !important;
+  font-size: 42px !important;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  line-height: 1;
+}

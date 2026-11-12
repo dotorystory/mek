@@ -105,12 +105,12 @@ else
     <div class="sitemap_left">
         <h1 class="logo_b container"> <a href="<?php echo G5_URL?>"> <img src="<?php echo G5_IMG_URL?>/logo_b.png" alt="MEK"> </a> </h1>
       <div class="site_left_txt">
-        <h2 class="container">Empresa especialista en sistemas de gestión de calidad web,<br>MEK Inc. y MEK Engineering Corp.</h2>
+        <h2 class="container">Empresa especialista en sistemas de gestión de calidad web,<br>MEK Engineering Corp. & MEK Inc.</h2>
         <p class="container">Your Technical Partner<br>For WEB Application</p>
       </div>
       <div class="site_left_add container">
         <p>30, Bupyeong-daero 313beon-gil, <br>Bupyeong-gu, Incheon, República de Corea<br>
-          <small>Copyright(c) MEK Engineering Corp. y MEK Inc. Todos los derechos reservados.</small></p>
+          <small>Copyright(c) MEK Engineering Corp. & MEK Inc. Todos los derechos reservados.</small></p>
       </div>
     </div>
     <div class="sitemap-middle">
@@ -149,7 +149,7 @@ else
       </nav>
     </div>
     <div class="sitemap-right">
-      <p class="site_close"><i class="ri-close-line"></i></p>
+      <p class="site_close"><span class="material-symbols-outlined" aria-hidden="true">close</span></p>
       <p class="site_map_txt"><span>SITE MAP</span></p>
     </div>
   </div>

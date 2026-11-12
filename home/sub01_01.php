@@ -23,7 +23,7 @@ include_once(G5_PATH.'/head.php');
         <br><br>
         IT와 포장용 외에도 Display, 전지 등의 전자 부분과 Copper Foil, Al Foil, Glass, Steel Sheet 등 각종 첨단 소재 분야에서도 최고, 최적의 해결책으로 글로벌 WEB 온라인 품질 관리 시스템을 공급하겠습니다.
         <br><br>
-        최고를 지향하는 저희 주식회사 엠이케이 / 맥엔지니어링 코퍼래이션이 항상 연구하여 더 좋은 제품을 보다 빠르게, 보다 경제적으로 공급하기 위해 최선을 다하겠습니다.
+        최고를 지향하는 저희 맥엔지니어링 코퍼레이션 / 주식회사 엠이케이이 항상 연구하여 더 좋은 제품을 보다 빠르게, 보다 경제적으로 공급하기 위해 최선을 다하겠습니다.
         <br><br>
         감사합니다.
         <br><br>
@@ -57,7 +57,8 @@ include_once(G5_PATH.'/head.php');
       <li><p><span class="overview_tit">소재지</span><span class="overview_txt"><?php echo $default['de_admin_company_addr']; ?></span></p><p><i class="ri-map-pin-line"></i></p></li>
       <li><p><span class="overview_tit">설립일</span><span class="overview_txt">1993년 8월</span></p><p><i class="ri-calendar-2-line"></i></p></li>
       <li><p><span class="overview_tit">주요 사업</span><span class="overview_txt">WEB 품질관리 시스템</span></p><p><i class="ri-briefcase-5-line"></i></p></li>
-      <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">전화</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
+      <li><a href="tel:<?php echo $default['de_admin_company_tel']; ?>"><p><span class="overview_tit">SALES Tel</span><span class="overview_txt"><?php echo $default['de_admin_company_tel']; ?></span></p><p><i class="ri-phone-line"></i></p></a></li>
+      <li><a href="tel:010-8214-1301"><p><span class="overview_tit">A/S Mobile</span><span class="overview_txt">010-8214-1301</span></p><p><i class="ri-smartphone-line"></i></p></a></li>
       <li><p><span class="overview_tit">팩스</span><span class="overview_txt"> <?php echo $default['de_admin_company_fax']; ?></span></p><p><i class="ri-file-paper-line"></i></p></li>
       <li><a href="javascript:void(0)" onclick="if(typeof openSimpleInquiry==='function'){openSimpleInquiry();}return false;"><p><span class="overview_tit">이메일</span><span class="overview_txt"><?php echo $default['de_admin_info_email']; ?></span></p><p><i class="ri-mail-line"></i></p></a></li>
     </ul>
