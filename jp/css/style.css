@@ -747,3 +747,7 @@ to {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   line-height: 1;
 }
+
+/* contact section: youtube instead of map */
+.main main #main_07 .main_contact .main_contact_wrap .main_contact_map.main_contact_video {overflow: hidden;}
+.main main #main_07 .main_contact .main_contact_wrap .main_contact_map.main_contact_video iframe {object-fit: cover;}

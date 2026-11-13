@@ -247,24 +247,31 @@ include_once(G5_PATH.'/head.php');
           <div class="main_contact_txt">
             <h3>Contact</h3>
             <ul class="main_contact_info">
-              <li>
+<li>
                 <h4>住所</h4><address>
                 <p class="i_color"><i class="ri-map-pin-2-fill"></i> (21315) 仁川広域市 扶平区 扶平大路 313番道路 30</p></address>
               </li>
-              <li>  <h4>電話番号</h4>
-                <p class="i_color"><i class="ri-phone-fill"></i> <span> <a href="tel"><?php echo $default['de_admin_company_tel']; ?></a> </span></p></li>
-                <li><h4>地図</h4>
+              <li>
+                <h4>Web</h4>
+                <p class="i_color"><i class="ri-global-line"></i> <span><a href="https://www.mekeng.com/" target="_blank" rel="noopener">www.mekeng.com</a></span></p>
+              </li>
+              <li><h4>地図</h4>
                 <p class="main_map_link"><a href="https://goo.gl/maps/GZyXpGczz41wA8kp7" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_google.png" alt="map pin"> <span>Google マップへのリンク</span> <i class="ri-external-link-line"></i></a></p>
                 <p class="main_map_link"><a href="https://naver.me/56DkMkfv" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_naver.png" alt="map pin"> <span>Naver マップへのリンク</span> <i class="ri-external-link-line"></i></a></p>
                 <p class="main_map_link"><a href="https://kko.to/AJHNDQK_Wu" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_kakao.png" alt="map pin"> <span>Kakao マップへのリンク</span> <i class="ri-external-link-line"></i></a></p>
               </li>
+              
+                
             </ul>
             <!-- <div class="button_wrap">
               <p class="main_button"><a href="<?php echo G5_URL?>/sub04_01.php" class="button"><span>Inquire</span><i class="ri-arrow-right-up-line"></i></a></p>
             </div> -->
           </div>
-          <div class="main_contact_map">
+                    <div class="main_contact_map main_contact_video">
+            <!-- 기존 구글지도 (숨김)
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.493040237311!2d126.7199459!3d37.51987340000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b7dbfb4c86b07%3A0x79c388befcd985ac!2s%EF%BC%93%EF%BC%90%20Bupyeong-daero%20313beon-gil%2C%20Bupyeong-gu%2C%20Incheon!5e0!3m2!1sja!2skr!4v1712642809451!5m2!1sja!2skr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            -->
+            <iframe src="https://www.youtube.com/embed/KQwHwMWlWek?autoplay=1&mute=1&loop=1&playlist=KQwHwMWlWek&controls=1&rel=0&playsinline=1" title="MEK YouTube" style="border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
         </div>
       </div>

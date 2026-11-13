@@ -247,24 +247,30 @@ include_once(G5_PATH.'/head.php');
           <div class="main_contact_txt">
             <h3>Contact</h3>
             <ul class="main_contact_info">
-              <li>
+<li>
                 <h4>Address</h4><address>
               <p class="i_color"><i class="ri-map-pin-2-fill"></i> (21315) 30, Bupyeong-daero 313beon-gil, Bupyeong-gu, Incheon, South Korea</p></address></li>
-              <li>  <h4>Tel</h4>
-                <p class="i_color"><i class="ri-phone-fill"></i> <span> <a href="tel"><?php echo $default['de_admin_company_tel']; ?></a> </span></p></li>
-                <li><h4>Map</h4>
-                  <p class="main_map_link"><a href="https://goo.gl/maps/GZyXpGczz41wA8kp7" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_google.png" alt="map pin"> <span>Go to Google Maps</span> <i class="ri-external-link-line"></i></a></p>
-                  <p class="main_map_link"><a href="https://naver.me/56DkMkfv" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_naver.png" alt="map pin"> <span>Go to Naver Maps</span> <i class="ri-external-link-line"></i></a></p>
-                  <p class="main_map_link"><a href="https://kko.to/AJHNDQK_Wu" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_kakao.png" alt="map pin"> <span>Go to Kakao Maps</span> <i class="ri-external-link-line"></i></a></p>
-
+              <li>
+                <h4>Web</h4>
+                <p class="i_color"><i class="ri-global-line"></i> <span><a href="https://www.mekeng.com/" target="_blank" rel="noopener">www.mekeng.com</a></span></p>
               </li>
+              <li><h4>Map</h4>
+                <p class="main_map_link"><a href="https://goo.gl/maps/GZyXpGczz41wA8kp7" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_google.png" alt="map pin"> <span>Go to Google Maps</span> <i class="ri-external-link-line"></i></a></p>
+                <p class="main_map_link"><a href="https://naver.me/56DkMkfv" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_naver.png" alt="map pin"> <span>Go to Naver Maps</span> <i class="ri-external-link-line"></i></a></p>
+                <p class="main_map_link"><a href="https://kko.to/AJHNDQK_Wu" target="_blank"><img src="<?php echo G5_IMG_URL?>/icon_kakao.png" alt="map pin"> <span>Go to Kakao Maps</span> <i class="ri-external-link-line"></i></a></p>
+              </li>
+              
+                
             </ul>
             <!-- <div class="button_wrap">
               <p class="main_button"><a href="<?php echo G5_URL?>/sub04_01.php" class="button"><span>Inquire</span><i class="ri-arrow-right-up-line"></i></a></p>
             </div> -->
           </div>
-          <div class="main_contact_map">
+                    <div class="main_contact_map main_contact_video">
+            <!-- 기존 구글지도 (숨김)
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.4896516316367!2d126.71929639999999!3d37.519953300000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b7dbfba74c2a5%3A0x4fc4a5da984f4e54!2zKOyjvCnsl6DsnbTsvIDsnbQ!5e0!3m2!1sen!2skr!4v1698804443901!5m2!1sen!2skr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            -->
+            <iframe src="https://www.youtube.com/embed/KQwHwMWlWek?autoplay=1&mute=1&loop=1&playlist=KQwHwMWlWek&controls=1&rel=0&playsinline=1" title="MEK YouTube" style="border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
         </div>
       </div>
