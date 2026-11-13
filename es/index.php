@@ -53,8 +53,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control<br class="br_mo"> Solutions</h2>
-                  <p class="vi_txt">El medidor de espesor en línea MEK es un equipo que mide el espesor <br class="pc">de productos con forma de web. Al medir el espesor de todo el <br class="pc">ancho en tiempo real durante la producción del producto, ayuda a mejorar la calidad,<br class="pc"> optimizar procesos y reducir costos.</p>
+                  <h2>MEK Hi-Precision<br>Inline Thickness Gauge</h2>
+                  <p class="vi_txt">El sistema de medición de espesor en línea de alta precisión de MEK mide en tiempo real<br class="pc">el espesor del producto en producción mediante diversos sensores y tecnologías de escaneo.<br class="pc">La tecnología de medición avanzada y el diseño a medida permiten un control de calidad preciso.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=20" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -64,8 +64,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">El medidor de espesor en línea MEK es un equipo que mide el espesor <br class="pc">de productos con forma de web. Al medir el espesor de todo el <br class="pc">ancho en tiempo real durante la producción del producto, ayuda a mejorar la calidad,<br class="pc"> optimizar procesos y reducir costos.</p>
+                  <h2>MEK Intelligent<br>Process Control Solutions</h2>
+                  <p class="vi_txt">Integramos datos de medición en tiempo real con control automático de procesos (APC),<br class="pc">análisis estadístico y software de monitorización para optimizar la producción.<br class="pc">Reducir la variación de calidad y aumentar la eficiencia contribuye al ahorro de costes.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=10" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">El medidor de espesor en línea MEK es un equipo que mide el espesor <br class="pc">de productos con forma de web. Al medir el espesor de todo el <br class="pc">ancho en tiempo real durante la producción del producto, ayuda a mejorar la calidad,<br class="pc"> optimizar procesos y reducir costos.</p>
+                  <h2>MEK Innovation,<br>Research & Manufacturing</h2>
+                  <p class="vi_txt">Sobre la base de su propio instituto de investigación corporativo y sus instalaciones de fabricación,<br class="pc">MEK investiga tecnologías de medición avanzadas y diseña y fabrica sistemas optimizados para el entorno de producción del cliente.<br class="pc">La innovación continua y la gestión sistemática de la calidad ofrecen soluciones fiables.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=13" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -86,8 +86,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">El medidor de espesor en línea MEK es un equipo que mide el espesor <br class="pc">de productos con forma de web. Al medir el espesor de todo el <br class="pc">ancho en tiempo real durante la producción del producto, ayuda a mejorar la calidad,<br class="pc"> optimizar procesos y reducir costos.</p>
+                  <h2>MEK Global Measurement<br>& Quality Controls</h2>
+                  <p class="vi_txt">Las soluciones de medición de precisión y control de calidad de MEK se aplican<br class="pc">en líneas de producción de diversos sectores industriales en Corea y en el extranjero.<br class="pc">Mediante la colaboración con clientes y partners globales, ofrecemos tecnología y servicios optimizados para el mercado mundial.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=14" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Benefits of System</h3>
+            <h3>Benefits of MEK Systems</h3>
           </div>
           <ul>
             <li><span>1</span><span>Mejora de la calidad del producto - Gestión de desviaciones (Espesor, Peso, Densidad)</span></li>
@@ -164,7 +164,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Partner Company</h3>
+            <h3>Global Partners</h3>
             <p>Siempre nos esforzamos por crear los mejores productos del mundo con amplia experiencia y la tecnología más reciente, y para satisfacer sus requisitos al máximo.</p>
 
           </div>

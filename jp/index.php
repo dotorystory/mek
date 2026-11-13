@@ -53,8 +53,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control<br class="br_mo"> Solutions</h2>
-                  <p class="vi_txt">MEK オンライン厚み計は、ウェブ形状の製品の厚さを測定する装置です。<br class="pc">製品の生産中に全幅の厚みをリアルタイムで測定し、制御することで、<br class="pc">品質向上、プロセスの最適化及び原価削減に貢献します。</p>
+                  <h2>MEK Hi-Precision<br>Inline Thickness Gauge</h2>
+                  <p class="vi_txt">MEKの高精度オンライン厚み測定システムは、多様なセンサーとスキャニング技術により、<br class="pc">生産中の製品の厚みをリアルタイムで測定します。<br class="pc">先端測定技術とカスタム設計で精密な品質管理を実現します。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_jp&wr_id=20" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -64,8 +64,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK オンライン厚み計は、ウェブ形状の製品の厚さを測定する装置です。<br class="pc">製品の生産中に全幅の厚みをリアルタイムで測定し、制御することで、<br class="pc">品質向上、プロセスの最適化及び原価削減に貢献します。</p>
+                  <h2>MEK Intelligent<br>Process Control Solutions</h2>
+                  <p class="vi_txt">リアルタイム測定データと自動工程制御（APC）、統計分析およびモニタリングソフトウェアを統合し、<br class="pc">生産工程を最適化します。<br class="pc">品質ばらつきを抑え、生産効率を高めてコスト削減に貢献します。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_jp&wr_id=10" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK オンライン厚み計は、ウェブ形状の製品の厚さを測定する装置です。<br class="pc">製品の生産中に全幅の厚みをリアルタイムで測定し、制御することで、<br class="pc">品質向上、プロセスの最適化及び原価削減に貢献します。</p>
+                  <h2>MEK Innovation,<br>Research & Manufacturing</h2>
+                  <p class="vi_txt">MEKは自社の企業研究所と製造施設を基盤に先端測定技術を研究し、<br class="pc">お客様の生産環境に最適化されたシステムを設計・製作します。<br class="pc">継続的な技術革新と体系的な品質管理により、信頼できるソリューションを提供します。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_jp&wr_id=13" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -86,8 +86,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK オンライン厚み計は、ウェブ形状の製品の厚さを測定する装置です。<br class="pc">製品の生産中に全幅の厚みをリアルタイムで測定し、制御することで、<br class="pc">品質向上、プロセスの最適化及び原価削減に貢献します。</p>
+                  <h2>MEK Global Measurement<br>& Quality Controls</h2>
+                  <p class="vi_txt">MEKの精密測定および品質管理ソリューションは、<br class="pc">国内外のさまざまな産業現場の生産ラインに適用されています。<br class="pc">グローバルな顧客およびパートナーとの協力を通じて、世界市場に最適化された技術とサービスを提供します。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_jp&wr_id=14" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Benefits of System</h3>
+            <h3>Benefits of MEK Systems</h3>
           </div>
           <ul>
             <li><span>1</span><span>IN-LINE非接触リアルタイム測定＆偏差管理（厚さ、重量、密度）</span></li>
@@ -165,7 +165,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Partner Company</h3>
+            <h3>Global Partners</h3>
             <p>豊富な経験と最新の技術を活かし、世界トップクラスの製品を作り、お客様の要求を満たすために常に最善を尽くしています。</p>
           </div>
           <div class="main_partner_content">

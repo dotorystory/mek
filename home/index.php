@@ -53,8 +53,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control<br class="br_mo"> Solutions</h2>
-                  <p class="vi_txt">MEK 온라인 두께측정기는 웹(WEB) 형상의 제품의 두께를 측정하는 장비입니다.<br class="pc">제품 생산 중에 전폭의 두께를 실시간 측정하여 제어함으로써 품질향상과<br class="pc">공정최적화 및 원가절감에 도움을 줍니다.</p>
+                  <h2>MEK Hi-Precision<br>Inline Thickness Gauge</h2>
+                  <p class="vi_txt">MEK의 고정밀 온라인 두께측정 시스템은 다양한 센서와 스캐닝 기술을 통해<br class="pc">생산 중인 제품의 두께를 실시간으로 측정합니다.<br class="pc">첨단 측정 기술과 맞춤형 설계로 정밀한 품질관리를 실현합니다.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_ko&wr_id=20" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -64,8 +64,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK 온라인 두께측정기는 웹(WEB) 형상의 제품의 두께를 측정하는 장비입니다.<br class="pc">제품 생산 중에 전폭의 두께를 실시간 측정하여 제어함으로써 품질향상과<br class="pc">공정최적화 및 원가절감에 도움을 줍니다.</p>
+                  <h2>MEK Intelligent<br>Process Control Solutions</h2>
+                  <p class="vi_txt">실시간 측정 데이터와 자동 공정 제어(APC), 통계 분석 및 모니터링 소프트웨어를 통합하여<br class="pc">생산 공정을 최적화합니다.<br class="pc">품질 편차를 줄이고 생산 효율을 높여 원가절감에 기여합니다.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_ko&wr_id=10" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK 온라인 두께측정기는 웹(WEB) 형상의 제품의 두께를 측정하는 장비입니다.<br class="pc">제품 생산 중에 전폭의 두께를 실시간 측정하여 제어함으로써 품질향상과<br class="pc">공정최적화 및 원가절감에 도움을 줍니다.</p>
+                  <h2>MEK Innovation,<br>Research & Manufacturing</h2>
+                  <p class="vi_txt">MEK는 자체 기업연구소와 제조시설을 기반으로 첨단 측정 기술을 연구하고,<br class="pc">고객의 생산 환경에 최적화된 시스템을 설계·제작합니다.<br class="pc">지속적인 기술 혁신과 체계적인 품질관리로 신뢰할 수 있는 솔루션을 제공합니다.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_ko&wr_id=13" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -86,8 +86,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK 온라인 두께측정기는 웹(WEB) 형상의 제품의 두께를 측정하는 장비입니다.<br class="pc">제품 생산 중에 전폭의 두께를 실시간 측정하여 제어함으로써 품질향상과<br class="pc">공정최적화 및 원가절감에 도움을 줍니다.</p>
+                  <h2>MEK Global Measurement<br>& Quality Controls</h2>
+                  <p class="vi_txt">MEK의 정밀 측정 및 품질관리 솔루션은 국내외 다양한 산업 현장의 생산라인에 적용되고 있습니다.<br class="pc">글로벌 고객 및 파트너와의 협력을 통해<br class="pc">세계 시장에 최적화된 기술과 서비스를 제공합니다.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_ko&wr_id=14" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -107,7 +107,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Benefits of System</h3>
+            <h3>Benefits of MEK Systems</h3>
           </div>
           <ul>
             <li><span>1</span><span>품질 향상 - IN-LINE 비접촉 실시간 측정 & 편차 관리 (두께, 중량, 밀도)</span></li>
@@ -175,7 +175,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Partner Company</h3>
+            <h3>Global Partners</h3>
             <p>풍부한 경험과 최신 기술로 세계 최고의 제품을 만들고 고객님의 요구를 충족시키기 위해 언제나 최선을 다하고 있습니다.</p>
           </div>
           <div class="main_partner_content">

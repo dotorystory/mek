@@ -53,8 +53,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control<br class="br_mo"> Solutions</h2>
-                  <p class="vi_txt">MEK 在线厚度测量仪是一种用于测量网页形式产品厚度的设备。<br class="pc">生产过程中通过实时测量产品的全幅厚度来进行控制，<br class="pc">从而提高产品质量，优化工艺，节约成本。</p>
+                  <h2>MEK Hi-Precision<br>Inline Thickness Gauge</h2>
+                  <p class="vi_txt">MEK高精度在线厚度测量系统通过多种传感器与扫描技术，<br class="pc">实时测量生产中产品的厚度。<br class="pc">以先进测量技术与定制化设计，实现精密的质量管理。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_cn&wr_id=20" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -64,8 +64,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK 在线厚度测量仪是一种用于测量网页形式产品厚度的设备。<br class="pc">生产过程中通过实时测量产品的全幅厚度来进行控制，<br class="pc">从而提高产品质量，优化工艺，节约成本。</p>
+                  <h2>MEK Intelligent<br>Process Control Solutions</h2>
+                  <p class="vi_txt">通过整合实时测量数据与自动过程控制（APC）、统计分析及监控软件，<br class="pc">优化生产工艺。<br class="pc">减少质量偏差、提升生产效率，助力降低成本。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_cn&wr_id=10" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK 在线厚度测量仪是一种用于测量网页形式产品厚度的设备。<br class="pc">生产过程中通过实时测量产品的全幅厚度来进行控制，<br class="pc">从而提高产品质量，优化工艺，节约成本。</p>
+                  <h2>MEK Innovation,<br>Research & Manufacturing</h2>
+                  <p class="vi_txt">MEK依托自有企业研究所与制造设施，研发先进测量技术，<br class="pc">并设计、制造针对客户生产环境优化的系统。<br class="pc">以持续的技术创新与系统化质量管理，提供值得信赖的解决方案。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_cn&wr_id=13" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -86,8 +86,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK 在线厚度测量仪是一种用于测量网页形式产品厚度的设备。<br class="pc">生产过程中通过实时测量产品的全幅厚度来进行控制，<br class="pc">从而提高产品质量，优化工艺，节约成本。</p>
+                  <h2>MEK Global Measurement<br>& Quality Controls</h2>
+                  <p class="vi_txt">MEK的精密测量与质量管理解决方案已应用于<br class="pc">国内外众多产业现场的生产线。<br class="pc">通过与全球客户及合作伙伴的协作，提供面向世界市场优化的技术与服务。</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_cn&wr_id=14" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Benefits of System</h3>
+            <h3>Benefits of MEK Systems</h3>
           </div>
           <ul>
             <li><span>1</span><span>在线非接触式实时测量及偏差管理（厚度、重量、密度）</span></li>
@@ -165,7 +165,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Partner Company</h3>
+            <h3>Global Partners</h3>
             <p>我们始终致力于通过丰富的经验和最新的技术，生产出世界一流的产品，以满足客户的需求。</p>
           </div>
           <div class="main_partner_content">

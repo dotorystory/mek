@@ -53,8 +53,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control<br class="br_mo"> Solutions</h2>
-                  <p class="vi_txt">MEK online thickness gauge is equipment that measures the thickness <br class="pc">of web-shaped products. By measuring the thickness of the entire <br class="pc">width in real-time during product production, it helps improve quality,<br class="pc"> optimize processes, and reduce costs.</p>
+                  <h2>MEK Hi-Precision<br>Inline Thickness Gauge</h2>
+                  <p class="vi_txt">MEK’s high-precision inline thickness measurement system measures product thickness<br class="pc">in real time through various sensors and scanning technologies.<br class="pc">Advanced measurement technology and customized design deliver precise quality control.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=20" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -64,8 +64,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK online thickness gauge is equipment that measures the thickness <br class="pc">of web-shaped products. By measuring the thickness of the entire <br class="pc">width in real-time during product production, it helps improve quality,<br class="pc"> optimize processes, and reduce costs.</p>
+                  <h2>MEK Intelligent<br>Process Control Solutions</h2>
+                  <p class="vi_txt">By integrating real-time measurement data with automatic process control (APC),<br class="pc">statistical analysis, and monitoring software, we optimize production processes.<br class="pc">Reducing quality variation and increasing efficiency helps cut costs.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=10" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK online thickness gauge is equipment that measures the thickness <br class="pc">of web-shaped products. By measuring the thickness of the entire <br class="pc">width in real-time during product production, it helps improve quality,<br class="pc"> optimize processes, and reduce costs.</p>
+                  <h2>MEK Innovation,<br>Research & Manufacturing</h2>
+                  <p class="vi_txt">Based on our own corporate research institute and manufacturing facilities,<br class="pc">MEK researches advanced measurement technologies and designs systems optimized for customers’ production environments.<br class="pc">Continuous innovation and systematic quality management deliver reliable solutions.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=13" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -86,8 +86,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">MEK online thickness gauge is equipment that measures the thickness <br class="pc">of web-shaped products. By measuring the thickness of the entire <br class="pc">width in real-time during product production, it helps improve quality,<br class="pc"> optimize processes, and reduce costs.</p>
+                  <h2>MEK Global Measurement<br>& Quality Controls</h2>
+                  <p class="vi_txt">MEK’s precision measurement and quality control solutions are applied<br class="pc">to production lines across diverse industries at home and abroad.<br class="pc">Through collaboration with global customers and partners, we deliver technology and services optimized for worldwide markets.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=14" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Benefits of System</h3>
+            <h3>Benefits of MEK Systems</h3>
           </div>
           <ul>
             <li><span>1</span><span>Improved product quality - Deviation Management (Thickenss, Weight, Density)</span></li>
@@ -164,7 +164,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Partner Company</h3>
+            <h3>Global Partners</h3>
             <p>We always strive to create the world's best products with rich experience and the latest technology, and to meet your requirements to the fullest.</p>
 
           </div>

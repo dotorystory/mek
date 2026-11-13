@@ -53,8 +53,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control<br class="br_mo"> Solutions</h2>
-                  <p class="vi_txt">Das MEK Online-Dickenmessgerät ist ein Gerät zur Messung der Dicke <br class="pc">von bahnförmigen Produkten. Durch Echtzeit-Messung der gesamten <br class="pc">Breite während der Produktion trägt es zur Qualitätsverbesserung,<br class="pc"> Prozessoptimierung und Kostensenkung bei.</p>
+                  <h2>MEK Hi-Precision<br>Inline Thickness Gauge</h2>
+                  <p class="vi_txt">Das hochpräzise Inline-Dickenmesssystem von MEK misst die Produktdicke während der Produktion<br class="pc">in Echtzeit mithilfe verschiedener Sensoren und Scanning-Technologien.<br class="pc">Fortschrittliche Messtechnik und maßgeschneidertes Design ermöglichen präzise Qualitätskontrolle.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=20" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -64,8 +64,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">Das MEK Online-Dickenmessgerät ist ein Gerät zur Messung der Dicke <br class="pc">von bahnförmigen Produkten. Durch Echtzeit-Messung der gesamten <br class="pc">Breite während der Produktion trägt es zur Qualitätsverbesserung,<br class="pc"> Prozessoptimierung und Kostensenkung bei.</p>
+                  <h2>MEK Intelligent<br>Process Control Solutions</h2>
+                  <p class="vi_txt">Durch die Integration von Echtzeit-Messdaten mit automatischer Prozesssteuerung (APC),<br class="pc">statistischer Analyse und Monitoring-Software optimieren wir den Produktionsprozess.<br class="pc">Weniger Qualitätsabweichungen und höhere Effizienz tragen zur Kostensenkung bei.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=10" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -75,8 +75,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">Das MEK Online-Dickenmessgerät ist ein Gerät zur Messung der Dicke <br class="pc">von bahnförmigen Produkten. Durch Echtzeit-Messung der gesamten <br class="pc">Breite während der Produktion trägt es zur Qualitätsverbesserung,<br class="pc"> Prozessoptimierung und Kostensenkung bei.</p>
+                  <h2>MEK Innovation,<br>Research & Manufacturing</h2>
+                  <p class="vi_txt">Auf Basis des eigenen Unternehmensforschungsinstituts und der Fertigungsstätten erforscht MEK<br class="pc">fortschrittliche Messtechnologien und konzipiert sowie fertigt Systeme, die auf die Produktionsumgebung der Kunden optimiert sind.<br class="pc">Kontinuierliche Innovation und systematische Qualitätskontrolle liefern zuverlässige Lösungen.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=13" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -86,8 +86,8 @@ include_once(G5_PATH.'/head.php');
             <div class="main-container">
               <div class="vi_txt_po">
                 <div class="vi_txt_wrap">
-                  <h2>Measurement<br><span class="vi_small">and</span> Control Solutions</h2>
-                  <p class="vi_txt">Das MEK Online-Dickenmessgerät ist ein Gerät zur Messung der Dicke <br class="pc">von bahnförmigen Produkten. Durch Echtzeit-Messung der gesamten <br class="pc">Breite während der Produktion trägt es zur Qualitätsverbesserung,<br class="pc"> Prozessoptimierung und Kostensenkung bei.</p>
+                  <h2>MEK Global Measurement<br>& Quality Controls</h2>
+                  <p class="vi_txt">Die Präzisionsmess- und Qualitätskontrolllösungen von MEK kommen in Produktionslinien<br class="pc">diverser Branchen im In- und Ausland zum Einsatz.<br class="pc">Durch die Zusammenarbeit mit globalen Kunden und Partnern bieten wir Technologie und Services, die für den Weltmarkt optimiert sind.</p>
                   <p class="main_button button_white"><a href="<?php echo G5_BBS_URL?>/board.php?bo_table=pro_en&wr_id=14" class="button"><span>View More</span><i class="ri-arrow-right-up-line"></i></a></p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Benefits of System</h3>
+            <h3>Benefits of MEK Systems</h3>
           </div>
           <ul>
             <li><span>1</span><span>Höhere Produktqualität - Abweichungen (Dicke, Gewicht, Dichte)</span></li>
@@ -164,7 +164,7 @@ include_once(G5_PATH.'/head.php');
       <div class="main_partner">
         <div class="main_partner_wrap">
           <div class="main_partner_txt container">
-            <h3>Partner Company</h3>
+            <h3>Global Partners</h3>
             <p>Wir streben danach, mit unserer reichen Erfahrung und der neuesten Technologie das beste Produkt der Welt zu schaffen und Ihre Anforderungen vollständig zu erfüllen.</p>
 
           </div>
