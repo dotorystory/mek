@@ -43,6 +43,7 @@ if (G5_IS_MOBILE) {
         <ul class="footer_link_list">
           <li><a href="https://blog.naver.com/mekeng" target="_blank"><img src="/public/img/icon_naver_blog.png" alt="MEK ネイバー ブログ リンク アイコン"></a></li>
           <li><a href="https://www.youtube.com/@mekeng_com" target="_blank"><img src="/public/img/icon_youtube.png" alt="MEK YouTube リンク アイコン"></a></li>
+          <li><a href="https://www.linkedin.com/company/mekeng/" target="_blank" rel="noopener noreferrer"><img src="/public/img/icon_linkedin.png" alt="MEK LinkedIn リンク アイコン"></a></li>
           <li class="ft_global">
             <a href="javascript:void(0)" class="ft_global_btn"><i class="ri-global-line"></i></a>
           <ul class="ft_global_list">
